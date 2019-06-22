@@ -9,6 +9,7 @@
   "author": "coke",
   "license": "ISC",
   "dependencies": {
+    "fast-html-parser": "^1.0.1",
     "request": "^2.88.0"
   }
 }
