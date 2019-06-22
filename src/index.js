@@ -13,7 +13,6 @@ function init(){
 
 function get_img(){
   var input_url = document.getElementById("url_input");
-  var status_text = document.getElementById("status_text");
   var request = remote.require('request');
   var html_parser = remote.require('fast-html-parser');
 
@@ -25,7 +24,8 @@ function get_img(){
 
       var parse_body = html_parser.parse(body);
 
-      status_text.innerText = "Get page: " + res.statusMessage;
+      set_status_text("Get page: " + res.statusMessage);
+
       for(var meta_tag of parse_body.querySelectorAll('meta')){
         // video: og:video:url
         if(meta_tag.attributes.property == "og:image"){
@@ -49,8 +49,14 @@ function load_conf(){
     );
     return config;
   }catch(err){
+    set_status_text("config file not found");
     throw err;
   }
+}
+
+function set_status_text(text){
+  var status_text = document.getElementById("status_text");
+  status_text.innerText = text;
 }
 
 window.onload = init;
