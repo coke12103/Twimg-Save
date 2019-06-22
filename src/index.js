@@ -23,6 +23,13 @@ function get_img(){
       }
 
       var parse_body = html_parser.parse(body);
+      var image_count = 0;
+      var user_id_and_status_id = input_url.value.replace("https://twitter.com/", "");
+      var user_id = user_id_and_status_id.match(/^(.+)(\/status\/)/)[1];
+      var status_id = user_id_and_status_id.match(/(\/status\/)([0-9]+)/)[2];
+
+      console.log(user_id);
+      console.log(status_id);
 
       set_status_text("Get page: " + res.statusMessage);
 
@@ -31,13 +38,22 @@ function get_img(){
         if(meta_tag.attributes.property == "og:image"){
           var media_url = meta_tag.attributes.content;
           media_url = media_url.replace("large", "orig");
-          console.log(media_url);
+          get_image_file(media_url, user_id + "_" + status_id + "_image" + image_count);
+          image_count++;
         }
       }
       console.log(res);
-
-      // console.log(body);
   })
+}
+
+function get_image_file(url, name){
+  var request = remote.require('request');
+  var extension = url.match(/(\/media\/)(.+)(\.[a-zA-Z]+)(:[a-zA-Z]+)$/)[3]
+
+  request.get(url).on('response', (res) => {
+      console.log("Download Image File: " + res.statusMessage);
+  }).pipe(fs.createWriteStream(config.save_dir + "/" + name + extension));
+  set_status_text("Download Complate!");
 }
 
 function load_conf(){
