@@ -1,10 +1,14 @@
 const electron = require('electron');
 const remote = electron.remote;
+const fs = remote.require('fs');
+
+var config;
 
 function init(){
   var confirm_button = document.getElementById("confirm");
 
   confirm_button.addEventListener("click", get_img, false);
+  config = load_conf();
 }
 
 function get_img(){
@@ -34,6 +38,19 @@ function get_img(){
 
       // console.log(body);
   })
+}
+
+function load_conf(){
+  try{
+    var config = JSON.parse(
+      fs.readFileSync(
+        './.config.json'
+      )
+    );
+    return config;
+  }catch(err){
+    throw err;
+  }
 }
 
 window.onload = init;
