@@ -1,7 +1,7 @@
 {
   "name": "twimg_save",
   "version": "1.0.0",
-  "description": "",
+  "description": "Download Twitter Image",
   "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
