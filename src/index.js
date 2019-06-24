@@ -9,6 +9,10 @@ function init(){
 
   confirm_button.addEventListener("click", get_img, false);
   config = load_conf();
+
+  if(config.clipboard_check){
+    check_clipboard_start();
+  }
 }
 
 function get_img(){
@@ -42,7 +46,6 @@ function get_img(){
           image_count++;
         }
       }
-      console.log(res);
   })
 }
 
@@ -54,6 +57,8 @@ function get_image_file(url, name){
       console.log("Download Image File: " + res.statusMessage);
   }).pipe(fs.createWriteStream(config.save_dir + "/" + name + extension));
   set_status_text("Download Complate!");
+
+  set_input_url("");
 }
 
 function load_conf(){
@@ -73,6 +78,32 @@ function load_conf(){
 function set_status_text(text){
   var status_text = document.getElementById("status_text");
   status_text.innerText = text;
+}
+
+function check_clipboard_start(){
+  var clipboard = remote.require('clipboardy');
+  var check_clipboard_flag = document.getElementById("is_check_clipboard");
+  var prev_str = clipboard.readSync();
+  setInterval(() => {
+      var current_str = clipboard.readSync();
+      if(check_clipboard_flag.checked){
+        if(prev_str != current_str){
+          prev_str = current_str;
+          if(current_str.match(/https:\/\/twitter.com\/.+\/status\/.*/i)){
+            set_input_url(current_str);
+
+            console.log("Match!!");
+          }else{
+            console.log("Not Match!")
+          }
+        }
+      }
+  }, 500);
+}
+
+function set_input_url(text){
+  var input_url = document.getElementById("url_input");
+  input_url.value = text;
 }
 
 window.onload = init;
