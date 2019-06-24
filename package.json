@@ -1,6 +1,6 @@
 {
   "name": "twimg_save",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Download Twitter Image",
   "main": "src/main.js",
   "scripts": {
