@@ -7,8 +7,8 @@ Twitterの画像保存してくれるやつ
 - Electron
 ## せっとあっぷ
 1. `mkdir gets`で画像を保存するフォルダーを作る
-1. `.config.json`ってファイルを作る
-2. そこに`{"save_dir": "./gets"}`って感じに書く
+1. `.config.json.sample`をコピーして`.config.json`を作る
+2. もしクリップボード監視を使いたいなら`.config.json`の`clipboard_check`を`true`にする
 3. `npm install`
 ## つかいかた
 1. `electron .`
