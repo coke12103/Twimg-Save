@@ -1,10 +1,13 @@
 # Twimg Save
 ## なにこれ
-Twitterの画像保存してくれるやつ
+いろんなSNSの画像保存してくれるやつ
 ## なにがいるの
 - Node.js
 - Npm
 - Electron
+## どこのSNSの画像保存できるの
+- Twitter
+- Misskey
 ## せっとあっぷ
 1. `mkdir gets`で画像を保存するフォルダーを作る
 1. `.config.json.sample`をコピーして`.config.json`を作る
