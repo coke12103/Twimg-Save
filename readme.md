@@ -8,15 +8,16 @@
 ## どこのSNSの画像保存できるの
 - Twitter
 - Misskey
+- Mastodon
 ## せっとあっぷ
 1. `mkdir gets`で画像を保存するフォルダーを作る
-1. `.config.json.sample`をコピーして`.config.json`を作る
-2. もしクリップボード監視を使いたいなら`.config.json`の`clipboard_check`を`true`にする
-3. `npm install`
+2. `.config.json.sample`をコピーして`.config.json`を作る
+3. もしクリップボード監視を使いたいなら`.config.json`の`clipboard_check`を`true`にする
+4. `npm install`
 ## つかいかた
 1. `electron .`
-2. Twitterでいい感じの画像のついたツイートを探す
-3. そのツイートのURLをコピーしてTwimg Saveの`URL`って所に入れる
+2. 対応したSNSでいい感じの画像のついた投稿を探す
+3. その投稿のURLをコピーしてTwimg Saveの`URL`って所に入れる
 4. `Download`を押す
-5. フォルダーにツイートに付いてる画像が全部保存される
+5. フォルダーに投稿に付いてる画像が全部保存される
 
