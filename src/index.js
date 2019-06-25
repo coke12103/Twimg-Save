@@ -9,6 +9,7 @@ function init(){
 
   confirm_button.addEventListener("click", get_img, false);
   config = load_conf();
+  set_status_text("Ready!")
 
   if(config.clipboard_check){
     check_clipboard_start();
@@ -17,10 +18,67 @@ function init(){
 
 function get_img(){
   var input_url = document.getElementById("url_input");
+
+  console.log("start");
+  switch(check_sns_type(input_url.value)){
+    case "twitter":
+      get_twitter_img(input_url.value);
+      break;
+    case "misskey":
+      get_misskey_img(input_url.value);
+      break;
+  }
+}
+
+function get_misskey_img(input_url){
+  var request = remote.require('request');
+  var url = remote.require('url');
+  var parse_url = url.parse(input_url);
+  var note_id = parse_url.pathname.match(/notes\/(.+)/)[1]
+
+  var domain = parse_url.protocol + "//" + parse_url.host;
+
+  var req = {
+    url: domain + '/api/notes/show',
+    method: 'POST',
+    json: {
+      "noteId": note_id
+    }
+  }
+
+  console.log(note_id)
+  request(req, (err, res, body) => {
+      if(err){
+        console.log('Error: ' + err.message);
+        return;
+      }
+
+      if(body.uri){
+        console.log("remote")
+        console.log(body);
+        return;
+      }
+
+      if(!body.files){
+        set_status_text("No Image File");
+        return;
+      }
+
+      var image_count = 0;
+      for(i = 0; body.files.length > i; i++){
+        var extension = body.files[i].name.match(/(\.[a-zA-Z]+)$/);
+        var file_name = body.user.username + "_" + body.id + "_image" + image_count + extension;
+        get_image_file(body.files[i].url, file_name);
+        image_count++
+      }
+  })
+}
+
+function get_twitter_img(url){
   var request = remote.require('request');
   var html_parser = remote.require('fast-html-parser');
 
-  request.get(input_url.value, (err, res, body) => {
+  request.get(url, (err, res, body) => {
       if(err){
         console.log('Error: ' + err.message);
         return;
@@ -28,7 +86,7 @@ function get_img(){
 
       var parse_body = html_parser.parse(body);
       var image_count = 0;
-      var user_id_and_status_id = input_url.value.replace("https://twitter.com/", "");
+      var user_id_and_status_id = url.replace("https://twitter.com/", "");
       var user_id = user_id_and_status_id.match(/^(.+)(\/status\/)/)[1];
       var status_id = user_id_and_status_id.match(/(\/status\/)([0-9]+)/)[2];
 
@@ -42,7 +100,8 @@ function get_img(){
         if(meta_tag.attributes.property == "og:image"){
           var media_url = meta_tag.attributes.content;
           media_url = media_url.replace("large", "orig");
-          get_image_file(media_url, user_id + "_" + status_id + "_image" + image_count);
+          var extension = media_url.match(/(\/media\/)(.+)(\.[a-zA-Z]+)(:[a-zA-Z]+)$/)[3]
+          get_image_file(media_url, user_id + "_" + status_id + "_image" + image_count + extension);
           image_count++;
         }
       }
@@ -55,12 +114,11 @@ function get_img(){
 
 function get_image_file(url, name){
   var request = remote.require('request');
-  var extension = url.match(/(\/media\/)(.+)(\.[a-zA-Z]+)(:[a-zA-Z]+)$/)[3]
 
   request.get(url).on('response', (res) => {
       console.log("Download Image File: " + res.statusMessage);
-  }).pipe(fs.createWriteStream(config.save_dir + "/" + name + extension));
-  set_status_text("Download Complate!");
+      set_status_text("Download: " + res.statusMessage);
+  }).pipe(fs.createWriteStream(config.save_dir + "/" + name));
 
   set_input_url("");
 }
@@ -134,7 +192,6 @@ function check_clipboard_start(){
 
             console.log("Match!!");
           }else{
-            console.log(check_sns_type(current_str));
             console.log("Not Match!")
           }
         }
