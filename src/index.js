@@ -46,6 +46,10 @@ function get_img(){
           image_count++;
         }
       }
+
+      new Notification('Twimg Save', {
+          body: image_count + "枚の画像を保存しました!"
+      });
   })
 }
 
@@ -80,6 +84,38 @@ function set_status_text(text){
   status_text.innerText = text;
 }
 
+function set_sns_type(type){
+  var sns_type = document.getElementById("sns_type");
+  sns_type.innerText = type;
+}
+
+function check_sns_type(url){
+  var type;
+  switch(true){
+    case /https:\/\/twitter\.com\/.+\/status\/.+/i.test(url):
+      set_sns_type("Twitter");
+      type = "twitter";
+      break;
+    case /https:\/\/(.+)\/notes\/([a-zA-Z0-9]+)/.test(url):
+      set_sns_type("Misskey");
+      type = "misskey";
+      break;
+    case /https:\/\/(.+)\/@(.+)\/([0-9]+)/.test(url):
+      set_sns_type("Mastodon");
+      type = "mastodon";
+      break;
+      case /https:\/\/(.+)\/notice\/([a-zA-Z0-9]+)/.test(url) || /https:\/\/(.+)\/objects\/.+/.test(url):
+      set_sns_type("Pleroma");
+      type = "pleroma";
+      break;
+    default:
+      set_sns_type("Unknoun");
+      type = false;
+      break;
+    }
+    return type;
+}
+
 function check_clipboard_start(){
   var clipboard = remote.require('clipboardy');
   var check_clipboard_flag = document.getElementById("is_check_clipboard");
@@ -89,11 +125,16 @@ function check_clipboard_start(){
       if(check_clipboard_flag.checked){
         if(prev_str != current_str){
           prev_str = current_str;
-          if(current_str.match(/https:\/\/twitter.com\/.+\/status\/.*/i)){
+          if(check_sns_type(current_str)){
             set_input_url(current_str);
+            set_status_text("Set url");
+            new Notification('Twimg Save', {
+                body: "クリップボードのURLをセットしました!"
+            });
 
             console.log("Match!!");
           }else{
+            console.log(check_sns_type(current_str));
             console.log("Not Match!")
           }
         }
