@@ -7,7 +7,7 @@ var config;
 function init(){
   var confirm_button = document.getElementById("confirm");
 
-  confirm_button.addEventListener("click", get_img, false);
+  confirm_button.addEventListener("click", get_img_from_input, false);
   config = load_conf();
   set_status_text("Ready!")
 
@@ -16,16 +16,23 @@ function init(){
   }
 }
 
-function get_img(){
+function get_img_from_input(){
   var input_url = document.getElementById("url_input");
 
+  get_img(input_url.value);
+}
+
+function get_img(url){
   console.log("start");
-  switch(check_sns_type(input_url.value)){
+  switch(check_sns_type(url)){
     case "twitter":
-      get_twitter_img(input_url.value);
+      get_twitter_img(url);
       break;
     case "misskey":
-      get_misskey_img(input_url.value);
+      get_misskey_img(url);
+      break;
+    case "mastodon":
+      get_mastodon_img(url);
       break;
   }
 }
@@ -55,7 +62,10 @@ function get_misskey_img(input_url){
 
       if(body.uri){
         console.log("remote")
-        console.log(body);
+        set_status_text("Remote Posts.")
+        get_img(body.uri)
+        console.log(body.uri);
+
         return;
       }
 
@@ -71,6 +81,58 @@ function get_misskey_img(input_url){
         get_image_file(body.files[i].url, file_name);
         image_count++
       }
+      end_notification(image_count);
+  })
+}
+
+function get_mastodon_img(input_url){
+  var request = remote.require('request');
+  var url = remote.require('url');
+  var parse_url = url.parse(input_url);
+  var status_id;
+
+  if(/https:\/\/(.+)\/@(.+)\/([0-9]+)/.test(input_url)){
+    status_id = parse_url.pathname.match(/@(.+)\/([0-9]+)/)[2];
+  }else{
+    status_id = parse_url.pathname.match(/users\/(.+)\/statuses\/([0-9]+)/)[2];
+  }
+
+  var domain = parse_url.protocol + "//" + parse_url.host;
+
+  var req = {
+    url: domain + '/api/v1/statuses/' + status_id,
+    method: 'GET',
+    json: true
+  }
+  console.log(status_id)
+  request(req, (err, res, body) => {
+      if(err){
+        console.log('Error: ' + err.message);
+        return;
+      }
+
+      if(body.media_attachments.length < 1){
+        set_status_text("No Image File");
+        return;
+      }
+
+      var image_count = 0;
+      for(i = 0; body.media_attachments.length > i; i++){
+        var media_url;
+        if(body.media_attachments[i].remote_url){
+          // remote
+          media_url = body.media_attachments[i].remote_url;
+        }else{
+          // local
+          media_url = body.media_attachments[i].url;
+        }
+
+        var extension = media_url.match(/\.[a-zA-Z]+$/);
+        var file_name = body.account.acct + "_" + body.id + "_image" + image_count + extension;
+        get_image_file(media_url, file_name);
+        image_count++;
+      }
+      end_notification(image_count);
   })
 }
 
@@ -105,10 +167,7 @@ function get_twitter_img(url){
           image_count++;
         }
       }
-
-      new Notification('Twimg Save', {
-          body: image_count + "枚の画像を保存しました!"
-      });
+      end_notification(image_count);
   })
 }
 
@@ -158,7 +217,7 @@ function check_sns_type(url){
       set_sns_type("Misskey");
       type = "misskey";
       break;
-    case /https:\/\/(.+)\/@(.+)\/([0-9]+)/.test(url):
+    case /https:\/\/(.+)\/@(.+)\/([0-9]+)/.test(url) || /https:\/\/(.+)\/users\/(.+)\/statuses\/([0-9]+)/.test(url):
       set_sns_type("Mastodon");
       type = "mastodon";
       break;
@@ -167,7 +226,7 @@ function check_sns_type(url){
       type = "pleroma";
       break;
     default:
-      set_sns_type("Unknoun");
+      //set_sns_type("Unknoun");
       type = false;
       break;
     }
@@ -185,7 +244,7 @@ function check_clipboard_start(){
           prev_str = current_str;
           if(check_sns_type(current_str)){
             set_input_url(current_str);
-            set_status_text("Set url");
+            set_status_text("Clipboard Text: Match. Set url.");
             new Notification('Twimg Save', {
                 body: "クリップボードのURLをセットしました!"
             });
@@ -193,10 +252,18 @@ function check_clipboard_start(){
             console.log("Match!!");
           }else{
             console.log("Not Match!")
+            set_status_text("Clipboard Text: Not Match!")
           }
         }
       }
   }, 500);
+}
+
+function end_notification(count){
+  new Notification('Twimg Save', {
+      body: count + "枚の画像を保存しました!"
+  });
+
 }
 
 function set_input_url(text){
