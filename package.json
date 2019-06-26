@@ -1,6 +1,6 @@
 {
   "name": "twimg_save",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Download various sns image",
   "main": "src/main.js",
   "scripts": {
