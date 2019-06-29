@@ -1,0 +1,115 @@
+.status_card,
+.target_sns_card,
+.url_input_card,
+.option_card{
+  margin-right:auto;
+  margin-left:auto;
+  width: 90%;
+  margin-bottom: 8px;
+  padding: 12px;
+}
+
+.url_input_area,
+.url_input_parts{
+  margin-right:auto;
+  margin-left:auto;
+}
+
+.url_input_area{
+  width: 90%;
+  text-align: center;
+  display: block;
+}
+
+.check_clipboard_switch{
+  display: block;
+}
+
+.confirm_button_area{
+  padding:  4px 8px;
+}
+
+.url_input_card{
+  padding: 0px;
+}
+
+.status_card.mdl-card,
+.target_sns_card.mdl-card,
+.url_input_card.mdl-card,
+.option_card.mdl-card{
+  min-height: 20px;
+}
+
+.mdl-card__title-text,
+#status_text{
+  display: inline-block;
+}
+
+.mdl-card__title{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.mdl-card__title-text{
+  font-size: 16px;
+}
+
+.switch_button{
+  min-width: 30px;
+}
+
+.checkbox_switch{
+  display: none;
+}
+
+.checkbox_label{
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  border: 2px solid #ccc;
+  height: 30px;
+  font-size: 10px;
+  line-height: 28px;
+  font-weight: bold;
+  background: #eee;
+  box-shadow: 2px 2px 4px #888;
+  transition: .3s;
+}
+
+.checkbox_label span:after{
+  content: "OFF";
+  color: #aaa;
+}
+
+.checkbox_switch:checked + .checkbox_label{
+  background: #78bd78;
+  box-shadow: none;
+}
+
+.checkbox_switch:checked + .checkbox_label span:after{
+  content: "ON";
+  color: #fff;
+}
+
+.switch_area{
+  display: flex;
+}
+
+.switch_label{
+  margin-top: 0;
+  margin-bottom:0;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.mdl-textfield__label:after{
+  background-color: #5BE0E8;
+}
+
+.mdl-button.mdl-button--colored{
+  color: #5BE0E8
+}
+body{
+}

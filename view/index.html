@@ -2,19 +2,59 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <title>Twimg Save</title>
     <script src="../src/index.js"></script>
+    <link rel="stylesheet" href="./index.css">
   </head>
   <body>
-    <h1>Twimg Save</h1>
-    <p>Status: <span id="status_text"></span></p>
-    <p>ターゲットSNS: <span id="sns_type"></span></p>
-    <div class="url_input_area">
-      <input type="text" id="url_input" placeholder="URL">
+    <!-- status card -->
+    <div class="status_card mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Status: <span id="status_text"></span></h2>
+      </div>
     </div>
-    <input type="button" value="Download!" id="confirm">
-    <div>
-      <input type="checkbox" id="is_check_clipboard"> クリップボードを監視してURLセットする？
+
+    <!-- target sns -->
+    <div class="target_sns_card mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">ターゲットSNS: <span id="sns_type"></span></h2>
+      </div>
+    </div>
+
+    <!-- url input -->
+    <div class="url_input_card mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <div class="url_input_area mdl-textfield mdl-js-textfield">
+          <input type="text" id="url_input" class="mdl-textfield__input url_input_parts url_input_input">
+          <label class="mdl-textfield__label url_input_parts" for="url_input">URL</label>
+        </div>
+      </div>
+      <div class="mdl-card__actions mdl-card--border confirm_button_area">
+        <input type="button" value="Download!" id="confirm" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+
+      </div>
+    </div>
+
+
+    <!-- check clipboard? -->
+    <div class="option_card mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <div class="switch_area">
+          <div class="switch_button">
+            <input type="checkbox" id="is_check_clipboard" class="checkbox_switch">
+            <label class="checkbox_label" for="is_check_clipboard">
+              <span></span>
+            </label>
+          </div>
+          <label class="switch_label" for="is_check_clipboard">
+            <span>クリップボードを監視してURLセットする？</span>
+          </label>
+        </div>
+      </div>
     </div>
   </body>
 </html>
