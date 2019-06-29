@@ -78,7 +78,7 @@ function get_misskey_img(input_url){
       for(i = 0; body.files.length > i; i++){
         var extension = body.files[i].name.match(/\.[a-zA-Z0-9]+$/);
         var file_name = "mk_" + body.user.username + "_";
-        if(config.extension_domain){
+        if(config.file_name_domain){
           file_name = file_name + parse_url.host + "_";
         }
         file_name = file_name + body.id + "_image" + image_count + extension;
@@ -135,7 +135,7 @@ function get_mastodon_img(input_url){
         console.log(media_url);
         var extension = media_url.match(/\.[a-zA-Z0-9]+$/);
         var file_name = "don_" + body.account.acct + "_";
-        if(config.extension_domain){
+        if(config.file_name_domain){
           file_name = file_name + parse_url.host + "_";
         }
         file_name = file_name + body.id + "_image" + image_count + extension;

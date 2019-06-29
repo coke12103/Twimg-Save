@@ -15,7 +15,7 @@ MisskeyとMastodonでは動画も保存できます
 1. `mkdir gets`で画像を保存するフォルダーを作る
 2. `.config.json.sample`をコピーして`.config.json`を作る
 3. もしクリップボード監視を使いたいなら`.config.json`の`clipboard_check`を`true`にする
-4. MastodonまたはMisskeyの画像のファイル名にインスタンスのドメインがほしいなら`.config.json`の`extension_domain`を`true`にする
+4. MastodonまたはMisskeyの画像のファイル名にインスタンスのドメインがほしいなら`.config.json`の`file_name_domain`を`true`にする
 5. `npm install`
 ## つかいかた
 1. `electron .`
