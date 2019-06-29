@@ -77,7 +77,7 @@ function get_misskey_img(input_url){
       var image_count = 0;
       for(i = 0; body.files.length > i; i++){
         var extension = body.files[i].name.match(/(\.[a-zA-Z0-9]+)$/);
-        var file_name = body.user.username + "_" + body.id + "_image" + image_count + extension;
+        var file_name = "mk_" + body.user.username + "_" + body.id + "_image" + image_count + extension;
         get_image_file(body.files[i].url, file_name);
         image_count++
       }
@@ -129,7 +129,7 @@ function get_mastodon_img(input_url){
 
         console.log(media_url);
         var extension = media_url.match(/\.[a-zA-Z0-9]+$/);
-        var file_name = body.account.acct + "_" + body.id + "_image" + image_count + extension;
+        var file_name = "don_" + body.account.acct + "_" + body.id + "_image" + image_count + extension;
         get_image_file(media_url, file_name);
         image_count++;
       }
@@ -164,7 +164,7 @@ function get_twitter_img(url){
           var media_url = meta_tag.attributes.content;
           media_url = media_url.replace("large", "orig");
           var extension = media_url.match(/(\/media\/)(.+)(\.[a-zA-Z0-9]+)(:[a-zA-Z]+)$/)[3]
-          get_image_file(media_url, user_id + "_" + status_id + "_image" + image_count + extension);
+          get_image_file(media_url, "tw_" + user_id + "_" + status_id + "_image" + image_count + extension);
           image_count++;
         }
       }
