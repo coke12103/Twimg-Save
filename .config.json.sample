@@ -1,4 +1,5 @@
 {
   "save_dir": "./gets",
   "clipboard_check": false
+  "extension_domain": true
 }
