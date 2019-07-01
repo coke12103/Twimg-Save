@@ -9,8 +9,9 @@
 - Twitter
 - Misskey
 - Mastodon
+- Pleroma
 ## ちなみに
-MisskeyとMastodonでは動画も保存できます
+Twitter以外では基本的にすべての添付ファイルが保存できます
 ## せっとあっぷ
 1. `mkdir gets`で画像を保存するフォルダーを作る
 2. `.config.json.sample`をコピーして`.config.json`を作る
