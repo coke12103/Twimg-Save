@@ -2,3 +2,5 @@ memo
 node_modules
 .config.json
 gets
+twimg-save-linux-x64/
+twimg-save-win32-x64/
