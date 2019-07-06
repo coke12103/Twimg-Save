@@ -3,12 +3,17 @@ const remote = electron.remote;
 const fs = remote.require('fs');
 
 var config;
+var categorys;
 
 function init(){
   var confirm_button = document.getElementById("confirm");
 
   confirm_button.addEventListener("click", get_img_from_input, false);
   config = load_conf();
+  categorys = load_category();
+
+  set_categorys();
+  console.log(categorys);
   set_status_text("Ready!")
 
   if(config.clipboard_check){
@@ -373,7 +378,8 @@ function get_image_file(url, name, ref){
     request(opt).then((body) => {
         console.log("Download Image File: OK");
         set_status_text("Download: OK");
-        fs.writeFileSync(config.save_dir + "/" + name, body, {encoding: 'binary'}, (err) => {
+        var save_dir = document.getElementById("category_select").value;
+        fs.writeFileSync(save_dir + "/" + name, body, {encoding: 'binary'}, (err) => {
             console.log(err);
         });
         resolve(true);
@@ -397,6 +403,55 @@ function load_conf(){
   }catch(err){
     set_status_text("config file not found");
     throw err;
+  }
+}
+
+function load_category(){
+  try{
+    var categorys = JSON.parse(
+      fs.readFileSync(
+        config.categorys_path
+      )
+    );
+
+    return categorys.categorys;
+  }catch(err){
+    data = {
+      categorys: [
+        {
+          "name": "デフォルト",
+          "save_dir": "./gets",
+          "color": "#FFFFFF"
+        },
+        {
+          "name": "nsfw",
+          "save_dir": "./gets/nsfw",
+          "color": "#555"
+        }
+      ]
+    }
+    fs.writeFileSync(config.categorys_path, JSON.stringify(data), (err) => {
+        if(err){
+          console.log(err);
+          throw err;
+        }
+    })
+    set_status_text("Create categorys sample");
+    var categorys = JSON.parse(
+      fs.readFileSync(
+        config.categorys_path
+      )
+    );
+    return categorys.categorys;
+  }
+}
+
+function set_categorys(){
+  for(var i in categorys){
+    var cat = document.createElement("option");
+    cat.value = categorys[i].save_dir;
+    cat.text = categorys[i].name;
+    document.getElementById("category_select").appendChild(cat);
   }
 }
 
