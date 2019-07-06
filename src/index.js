@@ -421,12 +421,10 @@ function load_category(){
         {
           "name": "デフォルト",
           "save_dir": "./gets",
-          "color": "#FFFFFF"
         },
         {
           "name": "nsfw",
           "save_dir": "./gets/nsfw",
-          "color": "#555"
         }
       ]
     }
