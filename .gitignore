@@ -2,5 +2,4 @@ memo
 node_modules
 .config.json
 gets
-win
-linux
+packaged_files

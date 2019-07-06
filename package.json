@@ -1,12 +1,12 @@
 {
   "name": "twimg_save",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Download various sns image",
   "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "coke",
+  "author": "coke12103",
   "license": "ISC",
   "dependencies": {
     "clipboardy": "^2.1.0",
