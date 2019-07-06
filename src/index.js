@@ -232,6 +232,7 @@ function get_pleroma_img(input_url){
 function get_twitter_img(url){
   var request = remote.require('request');
   var html_parser = remote.require('fast-html-parser');
+  url = url.replace("mobile.", "");
 
   request.get(url, (err, res, body) => {
       if(err){
@@ -412,7 +413,7 @@ function set_sns_type(type){
 function check_sns_type(url){
   var type;
   switch(true){
-    case /https:\/\/twitter\.com\/.+\/status\/.+/i.test(url):
+    case /https:\/\/(mobile\.)?twitter\.com\/.+\/status\/.+/i.test(url):
       set_sns_type("Twitter");
       type = "twitter";
       break;
