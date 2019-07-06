@@ -10,8 +10,10 @@
 - Misskey
 - Mastodon
 - Pleroma
+- Pixiv
 ## ちなみに
-Twitter以外では基本的にすべての添付ファイルが保存できます
+- Twitter以外では基本的にすべての添付ファイルが保存できます
+- PixivはIP BAN対策のため、最大2.5秒の待機を挟んでいます
 ## せっとあっぷ
 1. `mkdir gets`で画像を保存するフォルダーを作る
 2. `.config.json.sample`をコピーして`.config.json`を作る
