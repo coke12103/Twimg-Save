@@ -39,9 +39,27 @@
       </div>
     </div>
 
+    <!-- category area -->
     <div id="categorys_area">
       <select name="category_select" id="category_select">
       </select>
+      <input type="button" value="追加" id="add_category_button">
+    </div>
+
+    <div id="category_add_popup">
+      <div id="category_add_popup_content">
+        <input type="button" value="Close" id="add_category_close">
+        <h1>カテゴリ新規作成</h1>
+        <h2>カテゴリ名</h2>
+        <input type="text" id="category_name_input" required>
+        <h2>保存先</h2>
+        <span id="error_display"></span>
+        <p>保存先: <span id="save_path_display"></span></p>
+        <input type="button" value="Select folder" id="select_save_directory">
+
+
+        <input type="button" value="追加!" id="save_category">
+      </div>
     </div>
 
     <!-- check clipboard? -->
