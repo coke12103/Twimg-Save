@@ -559,24 +559,28 @@ function ui_setup(){
 }
 
 function save_category(){
-  var name = document.getElementById('category_name_input').value;
-  var folder = document.getElementById('save_path_display').textContent;
+  var name = document.getElementById('category_name_input');
+  var folder = document.getElementById('save_path_display');
 
-  if(!folder){
+  if(!folder.textContent){
     var error_display = document.getElementById('error_display');
     error_display.innerText = "フォルダが選択されていません!";
     return;
   }
 
   var cat = {
-    "name": name,
-    "save_dir": folder
+    "name": name.value,
+    "save_dir": folder.textContent
   }
 
   console.log(categorys);
   console.log(categorys_json);
   categorys_json.categorys.push(cat);
   write_categorys_to_file();
+
+  name.value = "";
+  folder.textContent = "";
+  document.getElementById('add_category_close').click();
 }
 
 function write_categorys_to_file(){
@@ -586,7 +590,8 @@ function write_categorys_to_file(){
         throw err;
       }
   });
-  console.log("write!")
+  console.log("write!");
+  set_status_text("カテゴリを更新しました!");
   set_categorys();
 }
 

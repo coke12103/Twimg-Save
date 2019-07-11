@@ -2,7 +2,8 @@
 .status_card,
 .target_sns_card,
 .url_input_card,
-.option_card{
+.option_card,
+.category_card{
   margin-right:auto;
   margin-left:auto;
   width: 90%;
@@ -33,7 +34,8 @@
 .status_card.mdl-card,
 .target_sns_card.mdl-card,
 .url_input_card.mdl-card,
-.option_card.mdl-card{
+.option_card.mdl-card,
+.category_card.mdl-card{
   min-height: 20px;
 }
 
@@ -133,6 +135,108 @@
   width: 85%;
   height: 90%;
   padding: 10px 20px;
+}
+
+/* category select */
+.category_select_area{
+  position: relative;
+  width: 100%;
+  padding: 14px 0 14px 0;
+}
+
+.category_select{
+  position: relative;
+  font-family: inherit;
+  background-color: transparent;
+  width: 100%;
+  padding: 10px 10px 10px 0;
+  font-size: 18px;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0, 0.12);
+}
+
+.category_select:focus{
+  outline: none;
+  border-bottom: 1px solid rgba(0,0,0, 0);
+}
+
+.category_select_area .category_select{
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.category_select_area:after{
+  position: absolute;
+  top: 34px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  padding: 0;
+  content: '';
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(0,0,0, 0.12);
+  pointer-events: none;
+}
+
+.select_label{
+  color: rgba(0,0,0, 0.26);
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  top: 10px;
+  transition: 0.2s ease all;
+}
+
+.category_select:focus ~ .select_label,
+.category_select:valid ~ .select_label{
+  color: #5BE0E8;
+  top: -2px;
+  transition: 0.2s ease all;
+  font-size: 14px;
+}
+
+.select_bar{
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.select_bar:before,
+.select_bar:after{
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 1px;
+  position: absolute;
+  background: #5BE0E8;
+  transition: 0.2s ease all;
+}
+
+.select_bar:before{
+  left: 50%;
+}
+
+.select_bar:after{
+  right: 50%;
+}
+
+.category_select:focus ~ .select_bar:before,
+.category_select:focus ~ .select_bar:after{
+	width: 50%;
+}
+
+.select_highlight{
+  position: absolute;
+  height: 60%;
+  width: 100px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 body{

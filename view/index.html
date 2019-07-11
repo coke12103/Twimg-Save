@@ -40,12 +40,20 @@
     </div>
 
     <!-- category area -->
-    <div id="categorys_area">
-      <select name="category_select" id="category_select">
-      </select>
+    <div id="categorys_area" class="category_card mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <div class="category_select_area">
+          <select name="category_select" class="category_select" id="category_select">
+          </select>
+          <span class="select_highlight"></span>
+          <span class="select_bar"></span>
+          <label class="select_label">カテゴリ</label>
+        </div>
+      </div>
       <input type="button" value="追加" id="add_category_button">
     </div>
 
+    <!-- category popup -->
     <div id="category_add_popup">
       <div id="category_add_popup_content">
         <input type="button" value="Close" id="add_category_close">
