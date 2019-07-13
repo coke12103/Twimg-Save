@@ -66,7 +66,7 @@ function get_misskey_img(input_url){
   }
 
   console.log(note_id)
-  request(req, (err, res, body) => {
+  request(req, async (err, res, body) => {
       if(err){
         console.log('Error: ' + err.message);
         return;
@@ -95,7 +95,13 @@ function get_misskey_img(input_url){
         }
         file_name = file_name + body.id + "_image" + image_count + extension;
 
-        get_image_file(body.files[i].url, file_name);
+        try{
+          await get_image_file(body.files[i].url, file_name);
+        }catch{
+          error_notification("ファイルの書き込みに失敗しました!");
+          return;
+        }
+
         image_count++
       }
       end_notification(image_count);
@@ -122,7 +128,7 @@ function get_mastodon_img(input_url){
     json: true
   }
   console.log(status_id)
-  request(req, (err, res, body) => {
+  request(req, async (err, res, body) => {
       if(err){
         console.log('Error: ' + err.message);
         return;
@@ -151,7 +157,13 @@ function get_mastodon_img(input_url){
           file_name = file_name + parse_url.host + "_";
         }
         file_name = file_name + body.id + "_image" + image_count + extension;
-        get_image_file(media_url, file_name);
+        try{
+          await get_image_file(media_url, file_name);
+        }catch{
+          error_notification("ファイルの書き込みに失敗しました!");
+          return;
+        }
+
         image_count++;
       }
       end_notification(image_count);
@@ -197,7 +209,7 @@ function get_pleroma_img(input_url){
     json: true
   }
   console.log(status_id)
-  request(req, (err, res, body) => {
+  request(req, async (err, res, body) => {
       if(err){
         console.log('Error: ' + err.message);
         return;
@@ -228,7 +240,12 @@ function get_pleroma_img(input_url){
           file_name = file_name + parse_url.host + "_";
         }
         file_name = file_name + body.id + "_image" + image_count + extension;
-        get_image_file(media_url, file_name);
+        try{
+          await get_image_file(media_url, file_name);
+        }catch{
+          error_notification("ファイルの書き込みに失敗しました!");
+          return;
+        }
         image_count++;
       }
       end_notification(image_count);
@@ -240,7 +257,7 @@ function get_twitter_img(url){
   var html_parser = remote.require('fast-html-parser');
   url = url.replace("mobile.", "");
 
-  request.get(url, (err, res, body) => {
+  request.get(url, async (err, res, body) => {
       if(err){
         console.log('Error: ' + err.message);
         return;
@@ -263,7 +280,12 @@ function get_twitter_img(url){
           var media_url = meta_tag.attributes.content;
           media_url = media_url.replace("large", "orig");
           var extension = media_url.match(/(\/media\/)(.+)(\.[a-zA-Z0-9]+)(:[a-zA-Z]+)$/)[3]
-          get_image_file(media_url, "tw_" + user_id + "_" + status_id + "_image" + image_count + extension);
+          try{
+            await get_image_file(media_url, "tw_" + user_id + "_" + status_id + "_image" + image_count + extension);
+          }catch{
+            error_notification("ファイルの書き込みに失敗しました!");
+            return;
+          }
           image_count++;
         }
       }
@@ -318,7 +340,13 @@ function get_pixiv_img(url){
       }
 
       console.log("current request url: " + image_url);
-      var result = await get_image_file(image_url, file_name, url);
+      try{
+        var result = await get_image_file(image_url, file_name, url);
+      }catch{
+        error_notification("ファイルの書き込みに失敗しました!");
+        break;
+      }
+
       if(result){
         image_count++;
         retry_count = 0;
@@ -354,7 +382,7 @@ function get_pixiv_img(url){
 }
 
 function get_image_file(url, name, ref){
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     var request = remote.require('request-promise');
 
     if(ref){
@@ -380,9 +408,15 @@ function get_image_file(url, name, ref){
         console.log("Download Image File: OK");
         set_status_text("Download: OK");
         var save_dir = document.getElementById("category_select").value;
-        fs.writeFileSync(save_dir + "/" + name, body, {encoding: 'binary'}, (err) => {
-            console.log(err);
-        });
+        try{
+          fs.writeFileSync(save_dir + "/" + name, body, {encoding: 'binary'}, (err) => {
+              console.log(err);
+          });
+        }catch(err){
+          console.log(err);
+
+          reject("Write Error!");
+        }
         resolve(true);
     }).catch((err) => {
         set_status_text("Download: " + err.statusCode);
@@ -619,7 +653,14 @@ function end_notification(count){
   new Notification('Twimg Save', {
       body: count + "枚の画像を保存しました!"
   });
+}
 
+function error_notification(err){
+  var dialog = remote.dialog;
+  new Notification('Twimg Save', {
+      body: "Error: " + err
+  });
+  dialog.showErrorBox("Twimg Save Error: ", err);
 }
 
 function set_input_url(text){
