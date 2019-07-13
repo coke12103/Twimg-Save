@@ -533,13 +533,14 @@ function ui_setup(){
   var folder_select_button = document.getElementById('select_save_directory');
   var popup = document.getElementById('category_add_popup');
   var save_button = document.getElementById('save_category');
+  var folder_open_button = document.getElementById('open_current_category_folder');
 
   open_button.addEventListener('click', () => {
-      popup.style.display = 'block';
+      popup.classList.add('is_show');
   });
 
   close_button.addEventListener('click', () => {
-      popup.style.display = 'none';
+      popup.classList.remove('is_show');
   });
 
   folder_select_button.addEventListener('click', () => {
@@ -549,28 +550,42 @@ function ui_setup(){
           properties: ['openDirectory'],
           title: 'フォルダの選択'
         }, (folder) => {
-          document.getElementById('save_path_display').innerText = folder[0];
+          document.getElementById('category_folder_path_input').value = folder[0];
       })
-  })
+  });
 
   save_button.addEventListener('click', () => {
       save_category();
+  });
+
+  folder_open_button.addEventListener('click', () => {
+      var save_dir = document.getElementById("category_select").value;
+      electron.shell.openItem(save_dir);
   })
 }
 
 function save_category(){
   var name = document.getElementById('category_name_input');
-  var folder = document.getElementById('save_path_display');
+  var folder = document.getElementById('category_folder_path_input');
+  var error_display = document.getElementById('error_display');
 
-  if(!folder.textContent){
-    var error_display = document.getElementById('error_display');
-    error_display.innerText = "フォルダが選択されていません!";
+  if(!folder.value | !name.value){
+    if(!folder.value){
+      var p = document.createElement('p');
+      p.innerText = "フォルダが選択されていません!";
+      error_display.appendChild(p);
+    }
+    if(!name.value){
+      var p = document.createElement('p');
+      p.innerText = "名前が入っていません!";
+      error_display.appendChild(p);
+    }
     return;
   }
 
   var cat = {
     "name": name.value,
-    "save_dir": folder.textContent
+    "save_dir": folder.value
   }
 
   console.log(categorys);
@@ -578,8 +593,13 @@ function save_category(){
   categorys_json.categorys.push(cat);
   write_categorys_to_file();
 
-  name.value = "";
-  folder.textContent = "";
+  name.value = '';
+  folder.value = '';
+  while(error_display.firstChild) error_display.removeChild(error_display.firstChild);
+
+  document.querySelector(".category_folder_path_input_area").classList.remove('is-dirty');
+  document.querySelector(".category_name_input_area").classList.remove('is-dirty');
+
   document.getElementById('add_category_close').click();
 }
 

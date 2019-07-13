@@ -50,23 +50,37 @@
           <label class="select_label">カテゴリ</label>
         </div>
       </div>
-      <input type="button" value="追加" id="add_category_button">
+      <div class="mdl-card__actions mdl-card--border category_button_area">
+        <input type="button" value="追加" id="add_category_button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        <input type="button" value="保存先を開く" id="open_current_category_folder" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      </div>
     </div>
 
     <!-- category popup -->
-    <div id="category_add_popup">
-      <div id="category_add_popup_content">
+    <div id="category_add_popup" class="fadeinout">
+      <div id="category_add_popup_content" class="mdl-shadow--2dp">
         <input type="button" value="Close" id="add_category_close">
+        <label id="add_category_close_label" for="add_category_close">
+          <i class="material-icons">
+            close
+          </i>
+        </label>
         <h1>カテゴリ新規作成</h1>
-        <h2>カテゴリ名</h2>
-        <input type="text" id="category_name_input" required>
-        <h2>保存先</h2>
         <span id="error_display"></span>
-        <p>保存先: <span id="save_path_display"></span></p>
-        <input type="button" value="Select folder" id="select_save_directory">
-
-
-        <input type="button" value="追加!" id="save_category">
+        <div class="category_name_input_area mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input type="text" id="category_name_input" class="mdl-textfield__input">
+          <label class="mdl-textfield__label" for="category_name_input">カテゴリ名</label>
+        </div>
+        <div class="category_folder_path_input_area mdl-textfield mdl-js-textfield">
+          <input type="text" id="category_folder_path_input" class="mdl-textfield__input">
+          <label class="mdl-textfield__label category_folder_path_input_label" for="category_folder_path_input">保存先フォルダ</label>
+          <button id="select_save_directory">
+            <i class="material-icons">
+              folder
+            </i>
+          </button>
+        </div>
+        <input type="button" value="追加!" id="save_category" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
       </div>
     </div>
 
