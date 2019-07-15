@@ -451,31 +451,41 @@ function load_category(){
 
     return cat;
   }catch(err){
-    data = {
-      categorys: [
-        {
-          "name": "デフォルト",
-          "save_dir": "./gets"
-        },
-        {
-          "name": "nsfw",
-          "save_dir": "./gets/nsfw"
-        }
-      ]
+    try{
+      fs.statSync(config.categorys_path);
+      console.log("Categorys File Found")
+      error_notification("カテゴリーファイルがパースできませんでした!\nHint: categorys.jsonの構造が壊れていないか確認してみてください。")
+
+    }catch(err){
+      console.log("Categorys File Not Found");
+      data = {
+        categorys: [
+          {
+            "id": 0,
+            "name": "デフォルト",
+            "save_dir": "./gets"
+          },
+          {
+            "id": 1,
+            "name": "nsfw",
+            "save_dir": "./gets/nsfw"
+          }
+        ]
+      }
+      fs.writeFileSync(config.categorys_path, JSON.stringify(data), (err) => {
+          if(err){
+            console.log(err);
+            throw err;
+          }
+      })
+      set_status_text("Create categorys sample");
+      var cat = JSON.parse(
+        fs.readFileSync(
+          config.categorys_path
+        )
+      );
+      return cat;
     }
-    fs.writeFileSync(config.categorys_path, JSON.stringify(data), (err) => {
-        if(err){
-          console.log(err);
-          throw err;
-        }
-    })
-    set_status_text("Create categorys sample");
-    var cat = JSON.parse(
-      fs.readFileSync(
-        config.categorys_path
-      )
-    );
-    return cat;
   }
 }
 
