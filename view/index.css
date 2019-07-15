@@ -117,6 +117,15 @@
   position: relative;
 }
 
+.category_delete_confirm_popup_content{
+  padding: 10px auto;
+}
+
+.category_delete_confirm_popup_content > h1 {
+  font-size: 20px;
+  margin 0;
+}
+
 .popup_close_button{
   display: none;
 }
@@ -177,6 +186,11 @@
 .confirm_button{
   color: #FFF !important;
   background: #5BE0E8 !important;
+}
+
+.delete_button{
+  color: #FFF !important;
+  background: #f54646 !important;
 }
 
 #error_display{

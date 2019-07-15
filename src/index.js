@@ -98,7 +98,7 @@ function get_misskey_img(input_url){
         try{
           await get_image_file(body.files[i].url, file_name);
         }catch{
-          error_notification("ファイルの書き込みに失敗しました!");
+          error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
           return;
         }
 
@@ -160,7 +160,7 @@ function get_mastodon_img(input_url){
         try{
           await get_image_file(media_url, file_name);
         }catch{
-          error_notification("ファイルの書き込みに失敗しました!");
+          error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
           return;
         }
 
@@ -243,7 +243,7 @@ function get_pleroma_img(input_url){
         try{
           await get_image_file(media_url, file_name);
         }catch{
-          error_notification("ファイルの書き込みに失敗しました!");
+          error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
           return;
         }
         image_count++;
@@ -283,7 +283,7 @@ function get_twitter_img(url){
           try{
             await get_image_file(media_url, "tw_" + user_id + "_" + status_id + "_image" + image_count + extension);
           }catch{
-            error_notification("ファイルの書き込みに失敗しました!");
+            error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
             return;
           }
           image_count++;
@@ -343,7 +343,7 @@ function get_pixiv_img(url){
       try{
         var result = await get_image_file(image_url, file_name, url);
       }catch{
-        error_notification("ファイルの書き込みに失敗しました!");
+        error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
         break;
       }
 
@@ -407,7 +407,7 @@ function get_image_file(url, name, ref){
     request(opt).then((body) => {
         console.log("Download Image File: OK");
         set_status_text("Download: OK");
-        var save_dir = document.getElementById("category_select").value;
+        var save_dir = categorys[document.getElementById("category_select").value].save_dir;
         try{
           fs.writeFileSync(save_dir + "/" + name, body, {encoding: 'binary'}, (err) => {
               console.log(err);
@@ -498,7 +498,7 @@ function set_categorys(){
 
   for(var i in categorys){
     var cat = document.createElement("option");
-    cat.value = categorys[i].save_dir;
+    cat.value = categorys[i].id;
     cat.text = categorys[i].name;
     category_select.appendChild(cat);
   }
@@ -572,45 +572,92 @@ function check_clipboard_start(){
 }
 
 function ui_setup(){
-  var open_button = document.getElementById('add_category_button');
-  var close_button = document.getElementById('add_category_close');
-  var folder_select_button = document.getElementById('select_save_directory');
-  var popup = document.getElementById('category_add_popup');
-  var save_button = document.getElementById('save_category');
+  var add_category_open_button = document.getElementById('add_category_button');
+  var add_category_close_button = document.getElementById('add_category_close');
+  var edit_category_open_button = document.getElementById('edit_category_button');
+  var edit_category_close_button = document.getElementById('edit_category_close');
+  var add_category_folder_select_button = document.getElementById('add_category_select_save_directory');
+  var edit_category_folder_select_button = document.getElementById('edit_category_select_save_directory');
+  var add_category_popup = document.getElementById('category_add_popup');
+  var edit_category_popup = document.getElementById('category_edit_popup');
+  var delete_category_confirm_popup = document.getElementById('category_delete_confirm_popup');
+  var add_category_confirm = document.getElementById('add_category_confirm');
+  var delete_category_button = document.getElementById('delete_category_confirm');
   var folder_open_button = document.getElementById('open_current_category_folder');
+  var confirm_delete_button = document.getElementById('delete_comfirm');
+  var cancel_delete_button = document.getElementById('delete_cancel');
+  var edit_category_confirm = document.getElementById('edit_category_confirm');
 
-  open_button.addEventListener('click', () => {
-      popup.classList.add('is_show');
+  add_category_open_button.addEventListener('click', () => {
+      add_category_popup.classList.add('is_show');
   });
 
-  close_button.addEventListener('click', () => {
-      popup.classList.remove('is_show');
+  edit_category_open_button.addEventListener('click', () => {
+      edit_category_popup.classList.add('is_show');
+      edit_category_load();
   });
 
-  folder_select_button.addEventListener('click', () => {
+  add_category_close_button.addEventListener('click', () => {
+      add_category_popup.classList.remove('is_show');
+  });
+
+  edit_category_close_button.addEventListener('click', () => {
+      edit_category_popup.classList.remove('is_show');
+  });
+
+  add_category_folder_select_button.addEventListener('click', () => {
       var dialog = remote.dialog;
 
       dialog.showOpenDialog(null, {
           properties: ['openDirectory'],
           title: 'フォルダの選択'
         }, (folder) => {
-          document.getElementById('category_folder_path_input').value = folder[0];
+          document.getElementById('add_category_folder_path_input').value = folder[0];
       })
   });
 
-  save_button.addEventListener('click', () => {
-      save_category();
+  edit_category_folder_select_button.addEventListener('click', () => {
+      var dialog = remote.dialog;
+
+      dialog.showOpenDialog(null, {
+          properties: ['openDirectory'],
+          title: 'フォルダの選択'
+        }, (folder) => {
+          document.getElementById('edit_category_folder_path_input').value = folder[0];
+      })
   });
+
+  add_category_confirm.addEventListener('click', () => {
+      add_new_category();
+  });
+
+  delete_category_button.addEventListener('click', () => {
+      delete_category_confirm_popup.classList.add('is_show');
+  })
+
+  confirm_delete_button.addEventListener('click', () => {
+      delete_category();
+      delete_category_confirm_popup.classList.remove('is_show');
+      edit_category_popup.classList.remove('is_show');
+  })
+
+  cancel_delete_button.addEventListener('click', () => {
+      delete_category_confirm_popup.classList.remove('is_show');
+  })
 
   folder_open_button.addEventListener('click', () => {
       var save_dir = document.getElementById("category_select").value;
       electron.shell.openItem(save_dir);
   })
+
+  edit_category_confirm.addEventListener('click', () => {
+      update_category();
+  })
 }
 
-function save_category(){
-  var name = document.getElementById('category_name_input');
-  var folder = document.getElementById('category_folder_path_input');
+function add_new_category(){
+  var name = document.getElementById('add_category_name_input');
+  var folder = document.getElementById('add_category_folder_path_input');
   var error_display = document.getElementById('error_display');
 
   if(!folder.value | !name.value){
@@ -627,7 +674,9 @@ function save_category(){
     return;
   }
 
+  var cat_id = categorys[categorys.length - 1].id + 1;
   var cat = {
+    "id": cat_id,
     "name": name.value,
     "save_dir": folder.value
   }
@@ -641,10 +690,68 @@ function save_category(){
   folder.value = '';
   while(error_display.firstChild) error_display.removeChild(error_display.firstChild);
 
-  document.querySelector(".category_folder_path_input_area").classList.remove('is-dirty');
-  document.querySelector(".category_name_input_area").classList.remove('is-dirty');
+  document.querySelector(".add_category_folder_path_input_area").classList.remove('is-dirty');
+  document.querySelector(".add_category_name_input_area").classList.remove('is-dirty');
 
   document.getElementById('add_category_close').click();
+}
+
+function update_category(){
+  var selected_category_id = document.getElementById("category_select").value;
+  var name = document.getElementById('edit_category_name_input');
+  var folder = document.getElementById('edit_category_folder_path_input');
+
+  if(!folder.value | !name.value){
+    if(!folder.value){
+      folder.value = categorys[selected_category_id].save_dir;
+    }
+    if(!name.value){
+      name.value = categorys[selected_category_id].name;
+    }
+  }
+
+  categorys_json.categorys[selected_category_id].save_dir = folder.value;
+  categorys_json.categorys[selected_category_id].name = name.value;
+
+  fix_category_id();
+
+  console.log(categorys);
+  console.log(categorys_json);
+
+  write_categorys_to_file();
+
+  document.getElementById('edit_category_close').click();
+  set_status_text("カテゴリを更新しました!");
+}
+
+function edit_category_load(){
+  var selected_category_id = document.getElementById("category_select").value;
+  var name_input = document.getElementById("edit_category_name_input");
+  var path_input = document.getElementById("edit_category_folder_path_input");
+
+  var name = categorys[selected_category_id].name;
+  var path = categorys[selected_category_id].save_dir;
+
+  name_input.value = name;
+  path_input.value = path;
+  document.querySelector(".edit_category_folder_path_input_area").classList.add('is-dirty');
+  document.querySelector(".edit_category_name_input_area").classList.add('is-dirty');
+}
+
+function delete_category(){
+  var selected_category_id = document.getElementById("category_select").value;
+  categorys_json.categorys.splice(selected_category_id, 1);
+  console.log(categorys_json);
+  fix_category_id();
+  write_categorys_to_file();
+  set_status_text("カテゴリを削除しました!");
+}
+
+function fix_category_id(){
+  categorys_json.categorys.forEach((val, index) => {
+      categorys_json.categorys[index].id = index;
+  });
+  console.log(categorys_json);
 }
 
 function write_categorys_to_file(){
