@@ -99,7 +99,7 @@
 }
 
 /* add category dialog */
-#category_add_popup{
+.popup{
   width: 100%;
   height: 100%;
   top: 0;
@@ -108,7 +108,7 @@
   position: fixed;
   background-color: rgba(0,0,0,0.4);
 }
-#category_add_popup_content{
+.popup_content{
   margin: 5% auto;
   background: #fff;
   width: 80%;
@@ -117,29 +117,35 @@
   position: relative;
 }
 
-#add_category_close{
+#add_category_close,
+#edit_category_close{
   display: none;
 }
 
-#add_category_close_label{
+#add_category_close_label,
+#edit_category_close_label{
   position: absolute;
   top: 14px;
   right: 18px;
   color: #5BE0E8;
 }
 
-#category_add_popup_content > h1{
+#category_add_popup_content > h1,
+#category_edit_popup_content > h1{
   font-size: 24px;
   margin: 0;
 }
 
-.category_folder_path_input_label,
-#category_folder_path_input{
+.add_category_folder_path_input_label,
+#add_category_folder_path_input,
+.edit_category_folder_path_input_label,
+#edit_category_folder_path_input{
   width: calc(100% - 30px);
   margin-right: 4px;
 }
 
-#select_save_directory{
+#add_category_select_save_directory,
+#edit_category_select_save_directory{
   width: 24px;
   appearance: none;
   -webkit-appearance: none;
@@ -148,24 +154,36 @@
   background: transparent;
 }
 
-#select_save_directory,
-#add_category_close_label{
+#add_category_select_save_directory,
+#add_category_close_label,
+#edit_category_select_save_directory,
+#edit_category_close_label{
   transition: all .2s;
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  -ms-transition: all .2s;
+  -o-transition: all .2s;
 }
 
 
-#select_save_directory:hover,
+#add_category_select_save_directory:hover,
 #add_category_close_label :hover,
-#select_save_directory:focus,
-#add_category_close_label :focus{
+#add_category_select_save_directory:focus,
+#add_category_close_label:focus,
+#edit_category_select_save_directory:hover,
+#edit_category_close_label:hover,
+#edit_category_select_save_directory:focus,
+#edit_category_close_label:focus{
   background-color: rgba(158,158,158,.2);
 }
 
-#select_save_directory > i{
+#add_category_select_save_directory > i,
+#edit_category_select_save_directory > i{
   color: #5BE0E8;
 }
 
-.category_folder_path_input_area{
+.add_category_folder_path_input_area,
+.edit_category_folder_path_input_area{
   position: relative;
   display: flex;
 }
@@ -174,7 +192,8 @@
   color: #5BE0E8;
 }
 
-#save_category{
+#add_category_confirm,
+#edit_category_confirm{
   color: #FFF;
   background: #5BE0E8;
 }
@@ -183,8 +202,10 @@
   color: red;
 }
 
-.category_name_input_area,
-.category_folder_path_input_area{
+.add_category_name_input_area,
+.add_category_folder_path_input_area,
+.edit_category_name_input_area,
+.edit_category_folder_path_input_area{
   width: 100%;
 }
 
