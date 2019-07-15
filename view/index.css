@@ -124,7 +124,7 @@
 #add_category_close_label{
   position: absolute;
   top: 14px;
-  right: 10px;
+  right: 18px;
   color: #5BE0E8;
 }
 
@@ -135,12 +135,12 @@
 
 .category_folder_path_input_label,
 #category_folder_path_input{
-  width: calc(100% - 42px);
+  width: calc(100% - 30px);
   margin-right: 4px;
 }
 
 #select_save_directory{
-  width: 36px;
+  width: 24px;
   appearance: none;
   -webkit-appearance: none;
   padding: 0;
@@ -181,6 +181,11 @@
 
 #error_display{
   color: red;
+}
+
+.category_name_input_area,
+.category_folder_path_input_area{
+  width: 100%;
 }
 
 /* category select */
