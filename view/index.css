@@ -117,35 +117,29 @@
   position: relative;
 }
 
-#add_category_close,
-#edit_category_close{
+.popup_close_button{
   display: none;
 }
 
-#add_category_close_label,
-#edit_category_close_label{
+.popup_close_label{
   position: absolute;
   top: 14px;
   right: 18px;
   color: #5BE0E8;
 }
 
-#category_add_popup_content > h1,
-#category_edit_popup_content > h1{
+.popup_content > h1{
   font-size: 24px;
   margin: 0;
 }
 
-.add_category_folder_path_input_label,
-#add_category_folder_path_input,
-.edit_category_folder_path_input_label,
-#edit_category_folder_path_input{
+.category_folder_path_input_label,
+.category_folder_path_input{
   width: calc(100% - 30px);
   margin-right: 4px;
 }
 
-#add_category_select_save_directory,
-#edit_category_select_save_directory{
+.select_save_directory_button{
   width: 24px;
   appearance: none;
   -webkit-appearance: none;
@@ -154,36 +148,24 @@
   background: transparent;
 }
 
-#add_category_select_save_directory,
-#add_category_close_label,
-#edit_category_select_save_directory,
-#edit_category_close_label{
+.select_save_directory_button,
+.popup_close_label{
   transition: all .2s;
   -webkit-transition: all .2s;
-  -moz-transition: all .2s;
-  -ms-transition: all .2s;
-  -o-transition: all .2s;
 }
 
-
-#add_category_select_save_directory:hover,
-#add_category_close_label :hover,
-#add_category_select_save_directory:focus,
-#add_category_close_label:focus,
-#edit_category_select_save_directory:hover,
-#edit_category_close_label:hover,
-#edit_category_select_save_directory:focus,
-#edit_category_close_label:focus{
+.select_save_directory_button:hover,
+.select_save_directory_button:focus,
+.popup_close_label:hover,
+.popup_close_label:focus{
   background-color: rgba(158,158,158,.2);
 }
 
-#add_category_select_save_directory > i,
-#edit_category_select_save_directory > i{
+.select_save_directory_button > i{
   color: #5BE0E8;
 }
 
-.add_category_folder_path_input_area,
-.edit_category_folder_path_input_area{
+.category_folder_path_input_area{
   position: relative;
   display: flex;
 }
@@ -192,20 +174,17 @@
   color: #5BE0E8;
 }
 
-#add_category_confirm,
-#edit_category_confirm{
-  color: #FFF;
-  background: #5BE0E8;
+.confirm_button{
+  color: #FFF !important;
+  background: #5BE0E8 !important;
 }
 
 #error_display{
   color: red;
 }
 
-.add_category_name_input_area,
-.add_category_folder_path_input_area,
-.edit_category_name_input_area,
-.edit_category_folder_path_input_area{
+.category_name_input_area,
+.category_folder_path_input_area{
   width: 100%;
 }
 

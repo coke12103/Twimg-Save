@@ -60,56 +60,66 @@
     <!-- category add popup -->
     <div id="category_add_popup" class="fadeinout popup">
       <div id="category_add_popup_content" class="mdl-shadow--2dp popup_content">
-        <input type="button" value="Close" id="add_category_close">
-        <label id="add_category_close_label" for="add_category_close">
+        <!-- Close Button-->
+        <input type="button" value="Close" id="add_category_close" class="popup_close_button">
+        <label id="add_category_close_label" for="add_category_close" class="popup_close_label">
           <i class="material-icons">
             close
           </i>
         </label>
+        <!-- Popup Title -->
         <h1>カテゴリ新規作成</h1>
         <span id="error_display"></span>
-        <div class="add_category_name_input_area mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input type="text" id="add_category_name_input" class="mdl-textfield__input popup_close_button">
+        <!-- Input Name -->
+        <div class="category_name_input_area mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input type="text" id="add_category_name_input" class="mdl-textfield__input">
           <label class="mdl-textfield__label" for="add_category_name_input">カテゴリ名</label>
         </div>
-        <div class="add_category_folder_path_input_area mdl-textfield mdl-js-textfield">
-          <input type="text" id="add_category_folder_path_input" class="mdl-textfield__input">
-          <label class="mdl-textfield__label add_category_folder_path_input_label" for="add_category_folder_path_input">保存先フォルダ</label>
-          <button id="add_category_select_save_directory">
+        <!-- Input folder path -->
+        <div class="category_folder_path_input_area mdl-textfield mdl-js-textfield">
+          <input type="text" id="add_category_folder_path_input" class="mdl-textfield__input category_folder_path_input">
+          <label class="mdl-textfield__label category_folder_path_input_label" for="add_category_folder_path_input">保存先フォルダ</label>
+          <button id="add_category_select_save_directory" class="select_save_directory_button">
             <i class="material-icons">
               folder
             </i>
           </button>
         </div>
-        <input type="button" value="追加!" id="add_category_confirm" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+        <!-- confirm button -->
+        <input type="button" value="追加!" id="add_category_confirm" class="confirm_button mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
       </div>
     </div>
 
-    <!-- category edit pooup -->
+    <!-- category edit popup -->
     <div id="category_edit_popup" class="fadeinout popup">
       <div id="category_edit_popup_content" class="mdl-shadow--2dp popup_content">
-        <input type="button" class="mdl-textfield__input" id="edit_category_close">
-        <label id="edit_category_close_label" for="edit_category_close">
+        <!-- Close Button-->
+        <input type="button" value="Close" id="edit_category_close" class="popup_close_button">
+        <label id="edit_category_close_label" for="edit_category_close" class="popup_close_label">
           <i class="material-icons">
             close
           </i>
         </label>
+        <!-- Popup Title -->
         <h1>カテゴリの編集</h1>
         <span id="error_display"></span>
-        <div class="edit_category_name_input_area mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <!-- Input Name -->
+        <div class="category_name_input_area mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input type="text" id="edit_category_name_input" class="mdl-textfield__input">
           <label class="mdl-textfield__label" for="edit_category_name_input">カテゴリ名</label>
         </div>
-        <div class="edit_category_folder_path_input_area mdl-textfield mdl-js-textfield">
-          <input type="text" id="edit_category_folder_path_input" class="mdl-textfield__input">
-          <label class="mdl-textfield__label edit_category_folder_path_input_label" for="edit_category_folder_path_input">保存先フォルダ</label>
-          <button id="edit_category_select_save_directory">
+        <!-- Input folder path -->
+        <div class="category_folder_path_input_area mdl-textfield mdl-js-textfield">
+          <input type="text" id="edit_category_folder_path_input" class="mdl-textfield__input category_folder_path_input">
+          <label class="mdl-textfield__label category_folder_path_input_label" for="edit_category_folder_path_input">保存先フォルダ</label>
+          <button id="edit_category_select_save_directory" class="select_save_directory_button">
             <i class="material-icons">
               folder
             </i>
           </button>
         </div>
-        <input type="button" value="追加!" id="edit_category_confirm" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+        <!-- confirm button -->
+        <input type="button" value="追加!" id="edit_category_confirm" class="confirm_button mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
       </div>
     </div>
 
