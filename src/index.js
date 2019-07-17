@@ -646,7 +646,7 @@ function ui_setup(){
   })
 
   folder_open_button.addEventListener('click', () => {
-      var save_dir = document.getElementById("category_select").value;
+      var save_dir = categorys[document.getElementById("category_select").value].save_dir;
       electron.shell.openItem(save_dir);
   })
 
