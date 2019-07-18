@@ -1,6 +1,6 @@
 {
   "save_dir": "./gets",
-  "clipboard_check": false
+  "clipboard_check": false,
   "file_name_domain": true,
   "categorys_path": "./categorys.json"
 }
