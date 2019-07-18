@@ -13,5 +13,9 @@
     "fast-html-parser": "^1.0.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "electron-packager": "^14.0.1",
+    "gulp": "^4.0.2"
   }
 }
