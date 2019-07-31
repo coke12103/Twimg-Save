@@ -772,7 +772,7 @@ function end_notification(count){
       body: count + "枚の画像を保存しました!"
   });
   notify.addEventListener('click', function() {
-    electron.shell.showItemInFolder(save_dir + "/" + file);
+    electron.shell.showItemInFolder(save_dir);
   });
 }
 
