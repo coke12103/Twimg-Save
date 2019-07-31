@@ -4,4 +4,4 @@ node_modules
 gets
 packaged_files
 categorys.json
-.release
+dist

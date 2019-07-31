@@ -1,10 +1,11 @@
 {
   "name": "twimg_save",
   "version": "3.0.1",
-  "description": "Download various sns image",
+  "description": "Simple SNS image downloader",
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
   },
   "author": "coke12103",
   "license": "ISC",
@@ -15,7 +16,7 @@
     "request-promise": "^4.2.4"
   },
   "devDependencies": {
-    "electron-packager": "^14.0.1",
-    "gulp": "^4.0.2"
+    "electron": "^5.0.7",
+    "electron-builder": "21.0.2"
   }
 }
