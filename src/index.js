@@ -546,11 +546,11 @@ function check_sns_type(url){
 }
 
 function check_clipboard_start(){
-  var clipboard = remote.require('clipboardy');
+  var clipboard = remote.clipboard;
   var check_clipboard_flag = document.getElementById("is_check_clipboard");
-  var prev_str = clipboard.readSync();
+  var prev_str = clipboard.readText();
   setInterval(() => {
-      var current_str = clipboard.readSync();
+      var current_str = clipboard.readText();
       if(check_clipboard_flag.checked){
         if(prev_str != current_str){
           prev_str = current_str;
