@@ -767,8 +767,12 @@ function write_categorys_to_file(){
 }
 
 function end_notification(count){
-  new Notification('Twimg Save', {
+  var save_dir = categorys[document.getElementById("category_select").value].save_dir;
+  var notify = new Notification('Twimg Save', {
       body: count + "枚の画像を保存しました!"
+  });
+  notify.addEventListener('click', function() {
+    electron.shell.showItemInFolder(save_dir + "/" + file);
   });
 }
 
