@@ -104,7 +104,7 @@ function get_misskey_img(input_url){
 
         image_count++
       }
-      end_notification(image_count);
+      end_notification(image_count, file_name);
   })
 }
 
@@ -166,7 +166,7 @@ function get_mastodon_img(input_url){
 
         image_count++;
       }
-      end_notification(image_count);
+      end_notification(image_count, file_name);
   })
 }
 
@@ -248,7 +248,7 @@ function get_pleroma_img(input_url){
         }
         image_count++;
       }
-      end_notification(image_count);
+      end_notification(image_count, file_name);
   })
 }
 
@@ -289,7 +289,7 @@ function get_twitter_img(url){
           image_count++;
         }
       }
-      end_notification(image_count);
+      end_notification(image_count, file_name);
   })
 }
 
@@ -367,7 +367,7 @@ function get_pixiv_img(url){
       console.log("image count: " + image_count);
       if(retry_count > 1){
         set_status_text("All download done!");
-        end_notification(image_count);
+        end_notification(image_count, file_name);
         break;
       }
       if(image_count > 200){
@@ -766,9 +766,13 @@ function write_categorys_to_file(){
   set_categorys();
 }
 
-function end_notification(count){
-  new Notification('Twimg Save', {
+function end_notification(count, file){
+  var save_dir = categorys[document.getElementById("category_select").value].save_dir;
+  var notify = new Notification('Twimg Save', {
       body: count + "枚の画像を保存しました!"
+  });
+  notify.addEventListener('click', function() {
+    electron.shell.showItemInFolder(save_dir + "/" + file);
   });
 }
 
