@@ -1,6 +1,7 @@
 const electron = require('electron');
 const remote = electron.remote;
 const fs = remote.require('fs');
+const notification = require('../lib/notification');
 
 var config;
 var categorys;
@@ -160,7 +161,7 @@ function get_mastodon_img(input_url){
         try{
           await get_image_file(media_url, file_name);
         }catch{
-          error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
+          notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
           return;
         }
 
@@ -243,7 +244,7 @@ function get_pleroma_img(input_url){
         try{
           await get_image_file(media_url, file_name);
         }catch{
-          error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
+          notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
           return;
         }
         image_count++;
@@ -283,7 +284,7 @@ function get_twitter_img(url){
           try{
             await get_image_file(media_url, "tw_" + user_id + "_" + status_id + "_image" + image_count + extension);
           }catch{
-            error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
+            notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
             return;
           }
           image_count++;
@@ -343,7 +344,7 @@ function get_pixiv_img(url){
       try{
         var result = await get_image_file(image_url, file_name, url);
       }catch{
-        error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
+        notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
         break;
       }
 
@@ -454,7 +455,7 @@ function load_category(){
     try{
       fs.statSync(config.categorys_path);
       console.log("Categorys File Found")
-      error_notification("カテゴリーファイルがパースできませんでした!\nHint: categorys.jsonの構造が壊れていないか確認してみてください。")
+      notification.error_notification("カテゴリーファイルがパースできませんでした!\nHint: categorys.jsonの構造が壊れていないか確認してみてください。")
 
     }catch(err){
       console.log("Categorys File Not Found");
@@ -774,14 +775,6 @@ function end_notification(count, file){
   notify.addEventListener('click', function() {
     electron.shell.showItemInFolder(save_dir + "/" + file);
   });
-}
-
-function error_notification(err){
-  var dialog = remote.dialog;
-  new Notification('Twimg Save', {
-      body: "Error: " + err
-  });
-  dialog.showErrorBox("Twimg Save Error: ", err);
 }
 
 function set_input_url(text){
