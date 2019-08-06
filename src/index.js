@@ -535,7 +535,7 @@ function check_sns_type(url){
       set_sns_type("Pleroma");
       type = "pleroma";
       break;
-      case /https:\/\/www\.pixiv\.net\/member_illust\.php/i.test(url):
+      case /http[s]?:\/\/www\.pixiv\.net\/member_illust\.php/i.test(url):
       set_sns_type("Pixiv");
       type = "pixiv";
       break;
