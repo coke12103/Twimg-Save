@@ -31,26 +31,27 @@ function get_img_from_input(){
 
 function get_img(url){
   console.log("start");
+  var save_dir = categorys[document.getElementById("category_select").value].save_dir;
   switch(check_sns_type(url)){
     case "twitter":
-      get_twitter_img(url);
+      get_twitter_img(url, save_dir);
       break;
     case "misskey":
-      get_misskey_img(url);
+      get_misskey_img(url, save_dir);
       break;
     case "mastodon":
-      get_mastodon_img(url);
+      get_mastodon_img(url, save_dir);
       break;
     case "pleroma":
-      get_pleroma_img(url);
+      get_pleroma_img(url, save_dir);
       break;
     case "pixiv":
-      get_pixiv_img(url);
+      get_pixiv_img(url, save_dir);
       break;
   }
 }
 
-function get_misskey_img(input_url){
+function get_misskey_img(input_url, save_dir){
   var request = remote.require('request');
   var url = remote.require('url');
   var parse_url = url.parse(input_url);
@@ -97,7 +98,7 @@ function get_misskey_img(input_url){
         file_name = file_name + body.id + "_image" + image_count + extension;
 
         try{
-          await get_image_file(body.files[i].url, file_name);
+          await get_image_file(body.files[i].url, file_name, save_dir);
         }catch{
           error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
           return;
@@ -105,11 +106,11 @@ function get_misskey_img(input_url){
 
         image_count++
       }
-      end_notification(image_count, file_name);
+      end_notification(image_count, save_dir + '/' + file_name);
   })
 }
 
-function get_mastodon_img(input_url){
+function get_mastodon_img(input_url, save_dir){
   var request = remote.require('request');
   var url = remote.require('url');
   var parse_url = url.parse(input_url);
@@ -159,7 +160,7 @@ function get_mastodon_img(input_url){
         }
         file_name = file_name + body.id + "_image" + image_count + extension;
         try{
-          await get_image_file(media_url, file_name);
+          await get_image_file(media_url, file_name, save_dir);
         }catch{
           notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
           return;
@@ -167,11 +168,11 @@ function get_mastodon_img(input_url){
 
         image_count++;
       }
-      end_notification(image_count, file_name);
+      end_notification(image_count, save_dir + '/' + file_name);
   })
 }
 
-function get_pleroma_img(input_url){
+function get_pleroma_img(input_url, save_dir){
   var request = remote.require('request');
   var url = remote.require('url');
   var parse_url = url.parse(input_url);
@@ -242,18 +243,18 @@ function get_pleroma_img(input_url){
         }
         file_name = file_name + body.id + "_image" + image_count + extension;
         try{
-          await get_image_file(media_url, file_name);
+          await get_image_file(media_url, file_name, save_dir);
         }catch{
           notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
           return;
         }
         image_count++;
       }
-      end_notification(image_count, file_name);
+      end_notification(image_count, save_dir + '/' + file_name);
   })
 }
 
-function get_twitter_img(url){
+function get_twitter_img(url, save_dir){
   var request = remote.require('request');
   var html_parser = remote.require('fast-html-parser');
   url = url.replace("mobile.", "");
@@ -282,7 +283,7 @@ function get_twitter_img(url){
           media_url = media_url.replace("large", "orig");
           var extension = media_url.match(/(\/media\/)(.+)(\.[a-zA-Z0-9]+)(:[a-zA-Z]+)$/)[3]
           try{
-            await get_image_file(media_url, "tw_" + user_id + "_" + status_id + "_image" + image_count + extension);
+            await get_image_file(media_url, "tw_" + user_id + "_" + status_id + "_image" + image_count + extension, save_dir);
           }catch{
             notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
             return;
@@ -290,11 +291,11 @@ function get_twitter_img(url){
           image_count++;
         }
       }
-      end_notification(image_count, file_name);
+      end_notification(image_count, save_dir + file_name);
   })
 }
 
-function get_pixiv_img(url){
+function get_pixiv_img(url, save_dir){
   var request = remote.require('request-promise');
   var html_parser = remote.require('fast-html-parser');
   var sleep = time => new Promise(resolve => setTimeout(resolve, time));
@@ -342,7 +343,7 @@ function get_pixiv_img(url){
 
       console.log("current request url: " + image_url);
       try{
-        var result = await get_image_file(image_url, file_name, url);
+        var result = await get_image_file(image_url, file_name, save_dir, url);
       }catch{
         notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
         break;
@@ -368,7 +369,7 @@ function get_pixiv_img(url){
       console.log("image count: " + image_count);
       if(retry_count > 1){
         set_status_text("All download done!");
-        end_notification(image_count, file_name);
+        end_notification(image_count, save_dir + '/' + file_name);
         break;
       }
       if(image_count > 200){
@@ -382,7 +383,7 @@ function get_pixiv_img(url){
   })
 }
 
-function get_image_file(url, name, ref){
+function get_image_file(url, name, save_dir, ref){
   return new Promise((resolve, reject) => {
     var request = remote.require('request-promise');
 
@@ -408,7 +409,7 @@ function get_image_file(url, name, ref){
     request(opt).then((body) => {
         console.log("Download Image File: OK");
         set_status_text("Download: OK");
-        var save_dir = categorys[document.getElementById("category_select").value].save_dir;
+
         try{
           fs.writeFileSync(save_dir + "/" + name, body, {encoding: 'binary'}, (err) => {
               console.log(err);
@@ -768,12 +769,11 @@ function write_categorys_to_file(){
 }
 
 function end_notification(count, file){
-  var save_dir = categorys[document.getElementById("category_select").value].save_dir;
   var notify = new Notification('Twimg Save', {
       body: count + "枚の画像を保存しました!"
   });
   notify.addEventListener('click', function() {
-    electron.shell.showItemInFolder(save_dir + "/" + file);
+    electron.shell.showItemInFolder(file);
   });
 }
 
