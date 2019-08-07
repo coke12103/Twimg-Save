@@ -100,13 +100,12 @@ function get_misskey_img(input_url, save_dir){
         try{
           await get_image_file(body.files[i].url, file_name, save_dir);
         }catch{
-          error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
+          notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
           return;
         }
-
         image_count++
       }
-      end_notification(image_count, save_dir + '/' + file_name);
+      notification.end_notification(image_count, save_dir + '/' + file_name);
   })
 }
 
@@ -168,7 +167,7 @@ function get_mastodon_img(input_url, save_dir){
 
         image_count++;
       }
-      end_notification(image_count, save_dir + '/' + file_name);
+      notification.end_notification(image_count, save_dir + '/' + file_name);
   })
 }
 
@@ -250,7 +249,7 @@ function get_pleroma_img(input_url, save_dir){
         }
         image_count++;
       }
-      end_notification(image_count, save_dir + '/' + file_name);
+      notification.end_notification(image_count, save_dir + '/' + file_name);
   })
 }
 
@@ -282,8 +281,9 @@ function get_twitter_img(url, save_dir){
           var media_url = meta_tag.attributes.content;
           media_url = media_url.replace("large", "orig");
           var extension = media_url.match(/(\/media\/)(.+)(\.[a-zA-Z0-9]+)(:[a-zA-Z]+)$/)[3]
+          var file_name = "tw_" + user_id + "_" + status_id + "_image" + image_count + extension;
           try{
-            await get_image_file(media_url, "tw_" + user_id + "_" + status_id + "_image" + image_count + extension, save_dir);
+            await get_image_file(media_url, file_name, save_dir);
           }catch{
             notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
             return;
@@ -291,7 +291,7 @@ function get_twitter_img(url, save_dir){
           image_count++;
         }
       }
-      end_notification(image_count, save_dir + file_name);
+      notification.end_notification(image_count, save_dir + '/' + file_name);
   })
 }
 
@@ -369,7 +369,7 @@ function get_pixiv_img(url, save_dir){
       console.log("image count: " + image_count);
       if(retry_count > 1){
         set_status_text("All download done!");
-        end_notification(image_count, save_dir + '/' + file_name);
+        notification.end_notification(image_count, save_dir + '/' + file_name);
         break;
       }
       if(image_count > 200){
@@ -766,15 +766,6 @@ function write_categorys_to_file(){
   console.log("write!");
   set_status_text("カテゴリを更新しました!");
   set_categorys();
-}
-
-function end_notification(count, file){
-  var notify = new Notification('Twimg Save', {
-      body: count + "枚の画像を保存しました!"
-  });
-  notify.addEventListener('click', function() {
-    electron.shell.showItemInFolder(file);
-  });
 }
 
 function set_input_url(text){
