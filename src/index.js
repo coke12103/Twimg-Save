@@ -532,7 +532,7 @@ function ui_setup(){
 
   edit_category_open_button.addEventListener('click', () => {
       edit_category_popup.classList.add('is_show');
-      category.edit_category_load();
+      category.edit_load();
   });
 
   add_category_close_button.addEventListener('click', () => {
@@ -566,7 +566,7 @@ function ui_setup(){
   });
 
   add_category_confirm.addEventListener('click', () => {
-      category.add_new_category(config);
+      category.add(config);
   });
 
   delete_category_button.addEventListener('click', () => {
@@ -574,7 +574,7 @@ function ui_setup(){
   })
 
   confirm_delete_button.addEventListener('click', () => {
-      category.delete_category(config);
+      category.del(config);
       delete_category_confirm_popup.classList.remove('is_show');
       edit_category_popup.classList.remove('is_show');
   })
@@ -589,7 +589,7 @@ function ui_setup(){
   })
 
   edit_category_confirm.addEventListener('click', () => {
-      category.update_category(config);
+      category.update(config);
   })
 }
 
