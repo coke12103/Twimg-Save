@@ -3,6 +3,7 @@ const remote = electron.remote;
 const fs = remote.require('fs');
 const notification = require('../lib/notification');
 const category = require('../lib/category');
+const downloader = require('../lib/downloader/index');
 
 var config;
 
@@ -33,7 +34,7 @@ function get_img(url){
   var save_dir = category.categorys[document.getElementById("category_select").value].save_dir;
   switch(check_sns_type(url)){
     case "twitter":
-      get_twitter_img(url, save_dir);
+      downloader.twitter(url, save_dir);
       break;
     case "misskey":
       get_misskey_img(url, save_dir);
@@ -252,48 +253,6 @@ function get_pleroma_img(input_url, save_dir){
   })
 }
 
-function get_twitter_img(url, save_dir){
-  var request = remote.require('request');
-  var html_parser = remote.require('fast-html-parser');
-  url = url.replace("mobile.", "");
-
-  request.get(url, async (err, res, body) => {
-      if(err){
-        console.log('Error: ' + err.message);
-        return;
-      }
-
-      var parse_body = html_parser.parse(body);
-      var image_count = 0;
-      var user_id_and_status_id = url.replace("https://twitter.com/", "");
-      var user_id = user_id_and_status_id.match(/^(.+)(\/status\/)/)[1];
-      var status_id = user_id_and_status_id.match(/(\/status\/)([0-9]+)/)[2];
-
-      console.log(user_id);
-      console.log(status_id);
-
-      set_status_text("Get page: " + res.statusMessage);
-
-      for(var meta_tag of parse_body.querySelectorAll('meta')){
-        // video: og:video:url
-        if(meta_tag.attributes.property == "og:image"){
-          var media_url = meta_tag.attributes.content;
-          media_url = media_url.replace("large", "orig");
-          var extension = media_url.match(/(\/media\/)(.+)(\.[a-zA-Z0-9]+)(:[a-zA-Z]+)$/)[3]
-          var file_name = "tw_" + user_id + "_" + status_id + "_image" + image_count + extension;
-          try{
-            await get_image_file(media_url, file_name, save_dir);
-          }catch{
-            notification.error_notification("ファイルの書き込みに失敗しました!\nHint: 保存先に指定されたフォルダが消えていませんか？消えていないならそのフォルダに書き込み権限はありますか？");
-            return;
-          }
-          image_count++;
-        }
-      }
-      notification.end_notification(image_count, save_dir + '/' + file_name);
-  })
-}
-
 function get_pixiv_img(url, save_dir){
   var request = remote.require('request-promise');
   var html_parser = remote.require('fast-html-parser');
@@ -381,52 +340,6 @@ function get_pixiv_img(url, save_dir){
       }
   })
 }
-
-function get_image_file(url, name, save_dir, ref){
-  return new Promise((resolve, reject) => {
-    var request = remote.require('request-promise');
-
-    if(ref){
-      var opt = {
-        url: url,
-        method: 'GET',
-        encoding: null,
-        headers: {
-          'Referer': ref,
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'
-        }
-      }
-    }else{
-      var opt = {
-        url: url,
-        encoding: null,
-        method: 'GET'
-      }
-    }
-
-    set_input_url("");
-    request(opt).then((body) => {
-        console.log("Download Image File: OK");
-        set_status_text("Download: OK");
-
-        try{
-          fs.writeFileSync(save_dir + "/" + name, body, {encoding: 'binary'}, (err) => {
-              console.log(err);
-          });
-        }catch(err){
-          console.log(err);
-
-          reject("Write Error!");
-        }
-        resolve(true);
-    }).catch((err) => {
-        set_status_text("Download: " + err.statusCode);
-        console.log(err.statusCode);
-        resolve(false);
-    });
-  })
-}
-
 
 function load_conf(){
   try{
