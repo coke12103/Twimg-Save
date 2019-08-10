@@ -3,6 +3,7 @@ const remote = electron.remote;
 const fs = remote.require('fs');
 const notification = require('../lib/notification');
 const category = require('../lib/category');
+const get_img = require('../lib/downloader/get');
 const downloader = require('../lib/downloader/index');
 
 var config;
@@ -29,27 +30,6 @@ function get_img_from_input(){
   get_img(input_url.value);
 }
 
-function get_img(url){
-  console.log("start");
-  var save_dir = category.categorys[document.getElementById("category_select").value].save_dir;
-  switch(check_sns_type(url)){
-    case "twitter":
-      downloader.twitter(url, save_dir);
-      break;
-    case "misskey":
-      downloader.misskey(url, save_dir);
-      break;
-    case "mastodon":
-      downloader.mastodon(url, save_dir);
-      break;
-    case "pleroma":
-      downloader.pleroma(url, save_dir);
-      break;
-    case "pixiv":
-      downloader.pixiv(url, save_dir);
-      break;
-  }
-}
 
 function load_conf(){
   try{
@@ -75,37 +55,6 @@ function set_sns_type(type){
   sns_type.innerText = type;
 }
 
-function check_sns_type(url){
-  var type;
-  switch(true){
-    case /https:\/\/(mobile\.)?twitter\.com\/.+\/status\/.+/i.test(url):
-      set_sns_type("Twitter");
-      type = "twitter";
-      break;
-    case /https:\/\/(.+)\/notes\/([a-zA-Z0-9]+)/.test(url):
-      set_sns_type("Misskey");
-      type = "misskey";
-      break;
-    case /https:\/\/(.+)\/@(.+)\/([0-9]+)/.test(url) || /https:\/\/(.+)\/users\/(.+)\/statuses\/([0-9]+)/.test(url):
-      set_sns_type("Mastodon");
-      type = "mastodon";
-      break;
-    case /https:\/\/(.+)\/notice\/([a-zA-Z0-9]+)/.test(url) || /https:\/\/(.+)\/objects\/.+/.test(url):
-      set_sns_type("Pleroma");
-      type = "pleroma";
-      break;
-      case /http[s]?:\/\/www\.pixiv\.net\/member_illust\.php/i.test(url):
-      set_sns_type("Pixiv");
-      type = "pixiv";
-      break;
-    default:
-      //set_sns_type("Unknoun");
-      type = false;
-      break;
-    }
-    return type;
-}
-
 function check_clipboard_start(){
   var clipboard = remote.clipboard;
   var check_clipboard_flag = document.getElementById("is_check_clipboard");
@@ -115,7 +64,7 @@ function check_clipboard_start(){
       if(check_clipboard_flag.checked){
         if(prev_str != current_str){
           prev_str = current_str;
-          if(check_sns_type(current_str)){
+          if(downloader.check_sns_type(current_str)){
             set_input_url(current_str);
             set_status_text("Clipboard Text: Match. Set url.");
             new Notification('Twimg Save', {
