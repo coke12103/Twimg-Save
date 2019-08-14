@@ -1,6 +1,6 @@
 {
   "name": "twimg_save",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "Simple SNS image downloader",
   "main": "src/main.js",
   "scripts": {
