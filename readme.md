@@ -11,9 +11,14 @@
 - Mastodon
 - Pleroma
 - Pixiv
+- Danbooru(danbooru.donmai.us)
 ## ちなみに
 - Twitter以外では基本的にすべての添付ファイルが保存できます
 - PixivはIP BAN対策のため、最大2.5秒の待機を挟んでいます
+## 命名規則
+基本的には以下の命名規則でファイルを保存するようになっています
+```{SNSの種類}_{ユーザーのID}_{投稿ID}_image{枚目}.{拡張子}```
+
 ## せっとあっぷ
 1. `mkdir gets`で画像を保存するフォルダーを作る
 2. `.config.json.sample`をコピーして`.config.json`を作る
