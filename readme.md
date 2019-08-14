@@ -12,6 +12,7 @@
 - Pleroma
 - Pixiv
 - Danbooru(danbooru.donmai.us)
+- Yandere(yande.re)
 ## ちなみに
 - Twitter以外では基本的にすべての添付ファイルが保存できます
 - PixivはIP BAN対策のため、最大2.5秒の待機を挟んでいます
