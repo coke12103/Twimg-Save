@@ -58,6 +58,7 @@ function set_sns_type(type){
 function check_clipboard_start(){
   var clipboard = remote.clipboard;
   var check_clipboard_flag = document.getElementById("is_check_clipboard");
+  var is_unlimited_download_flag = document.getElementById("is_unlimited_download");
   var prev_str = clipboard.readText();
   setInterval(() => {
       var current_str = clipboard.readText();
@@ -66,12 +67,20 @@ function check_clipboard_start(){
           prev_str = current_str;
           if(downloader.check_sns_type(current_str)){
             set_input_url(current_str);
-            set_status_text("Clipboard Text: Match. Set url.");
-            new Notification('Twimg Save', {
-                body: "クリップボードのURLをセットしました!"
-            });
 
             console.log("Match!!");
+            if(is_unlimited_download_flag.checked){
+              get_img_from_input();
+              set_status_text("Clipboard Text: Download Start");
+              new Notification('Twimg Save', {
+                  body: "クリップボードのURLからダウンロードを開始します..."
+              });
+            }else{
+              set_status_text("Clipboard Text: Match. Set url.");
+              new Notification('Twimg Save', {
+                  body: "クリップボードのURLをセットしました!"
+              });
+            }
           }else{
             console.log("Not Match!")
             set_status_text("Clipboard Text: Not Match!")
