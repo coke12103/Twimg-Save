@@ -28,6 +28,7 @@ function get_img_from_input(){
   var input_url = document.getElementById("url_input");
 
   get_img(input_url.value);
+  set_input_url("");
 }
 
 
