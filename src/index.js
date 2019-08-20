@@ -9,9 +9,6 @@ const downloader = require('../lib/downloader/index');
 var config;
 
 function init(){
-  var confirm_button = document.getElementById("confirm");
-
-  confirm_button.addEventListener("click", get_img_from_input, false);
   config = load_conf();
 
   category.set_categorys(config);
@@ -92,6 +89,7 @@ function check_clipboard_start(){
 }
 
 function ui_setup(){
+  // category
   var add_category_open_button = document.getElementById('add_category_button');
   var add_category_close_button = document.getElementById('add_category_close');
   var edit_category_open_button = document.getElementById('edit_category_button');
@@ -107,7 +105,13 @@ function ui_setup(){
   var confirm_delete_button = document.getElementById('delete_comfirm');
   var cancel_delete_button = document.getElementById('delete_cancel');
   var edit_category_confirm = document.getElementById('edit_category_confirm');
+  // main
+  var confirm_button = document.getElementById("confirm");
 
+  // main event
+  confirm_button.addEventListener("click", get_img_from_input, false);
+
+  // category event
   add_category_open_button.addEventListener('click', () => {
       add_category_popup.classList.add('is_show');
   });
