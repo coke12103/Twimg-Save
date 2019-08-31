@@ -5,11 +5,14 @@ const notification = require('../lib/notification');
 const category = require('../lib/category');
 const get_img = require('../lib/downloader/get');
 const downloader = require('../lib/downloader/index');
+const settings = require('../lib/settings');
 
 var config;
 
 function init(){
-  config = load_conf();
+  settings.load();
+
+  config = settings.value;
 
   category.set_categorys(config);
   ui_setup();
@@ -26,21 +29,6 @@ function get_img_from_input(){
 
   get_img(input_url.value);
   set_input_url("");
-}
-
-
-function load_conf(){
-  try{
-    var config = JSON.parse(
-      fs.readFileSync(
-        './.config.json'
-      )
-    );
-    return config;
-  }catch(err){
-    set_status_text("config file not found");
-    throw err;
-  }
 }
 
 function set_status_text(text){
