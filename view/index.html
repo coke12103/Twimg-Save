@@ -169,5 +169,82 @@
         </div>
       </div>
     </div>
+    <!-- settings button -->
+    <div class="option_card mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <div class="button_area">
+          <div class="button_area_content">
+            <input type="button" id="settings_button" style="display: none;">
+            <label class="icon_button mdl-button mdl-js-button mdl-button--icon settings_button_label" for="settings_button">
+              <i class="material-icons">settings_applications</i>
+            </label>
+          </div>
+          <label class="button_label" for="settings_button">
+            <span>設定</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <!-- settings popup -->
+    <div id="settings_popup" class="fadeinout popup">
+      <div id="settings_popup_content" class="mdl-shadow--2dp popup_content">
+        <!-- Close Button-->
+        <input type="button" value="Close" id="settings_close" class="popup_close_button">
+        <label id="settings_close_label" for="settings_close" class="popup_close_label">
+          <i class="material-icons">
+            close
+          </i>
+        </label>
+        <!-- Popup Title -->
+        <h1>設定</h1>
+        <span id="settings_error_display"></span>
+        <!-- Input categorys dir -->
+          <div class="settings_categorys_dir_input_area mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input type="text" id="settings_categorys_dir_input" class="mdl-textfield__input settings_dir_input">
+            <label class="mdl-textfield__label settings_dir_input_label" for="settings_categorys_dir_input">category.jsonの場所</label>
+            <button id="settings_select_categorys_dir" class="select_save_directory_button">
+              <i class="material-icons">
+                folder
+              </i>
+            </button>
+          </div>
+<!--
+        <div class="settings_categorys_dir_input_area mdl-textfield mdl-js-textfield">
+          <input type="text" id="settings_categorys_dir_input" class="mdl-textfield__input settings_dir_input">
+          <label class="mdl-textfield__label settings_dir_input_label" for="settings_categorys_dir_input">category.jsonの場所</label>
+          <button id="settings_select_categorys_dir" class="select_save_directory_button">
+            <i class="material-icons">
+              folder
+            </i>
+          </button>
+        </div>
+-->
+
+        <!-- clipboard check main setting -->
+        <div class="settings_switch_area">
+          <label for="settings_is_clipboard_check" class="settings_switch_text_column_box">
+            <span class="settings_switch_text">クリップボード監視の主電源</span>
+            <span class="settings_switch_sub_text">(適用にはソフトの再起動が必要です)</span>
+          </label>
+          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="settings_is_clipboard_check">
+            <input type="checkbox" id="settings_is_clipboard_check" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
+        <!-- filename domain -->
+        <div class="settings_switch_area">
+          <label for="settings_is_filename_domain" class="settings_switch_text_column_box">
+            <span class="settings_switch_text">保存時のファイル名にドメインを含める</span>
+            <span class="settings_switch_sub_text">(分散SNSのみに適用されます)</span>
+          </label>
+          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="settings_is_filename_domain">
+            <input type="checkbox" id="settings_is_filename_domain" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
+        <!-- confirm button -->
+        <input type="button" value="保存!" id="settings_confirm" class="confirm_button mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+      </div>
+    </div>
   </body>
 </html>

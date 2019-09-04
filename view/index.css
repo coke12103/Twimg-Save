@@ -41,7 +41,8 @@
   display: block;
 }
 
-.switch_button{
+.switch_button,
+.button_area_content{
   min-width: 30px;
 }
 
@@ -78,20 +79,81 @@
   color: #fff;
 }
 
-.switch_area{
+.switch_area, .button_area{
   display: flex;
 }
 
-.switch_label{
+.switch_label,
+.button_label{
   margin-top: 0;
   margin-bottom:0;
   margin-left: 8px;
   margin-right: 8px;
 }
 
+/* settings button */
+.button_area_content{
+  height: 30px;
+  display: block;
+  text-align: center;
+}
+
+.settings_button_label{
+  margin: auto;
+  border-radius: 0;
+}
+
+.settings_button_label:hover,
+.settings_button_label:active{
+  background-color: unset;
+}
+
+.settings_button_label > .material-icons{
+  font-size: 34px;
+  transform: unset;
+  -webkit-transform: unset;
+  position: relative;
+  top: -4px;
+  left: -6px;
+}
+
+/* settings popup */
+.settings_switch_area,
+.settings_switch_text_column_box{
+  display: flex;
+}
+
+.settings_switch_area{
+  align-items: center;
+  padding: 12px 0;
+}
+
+.settings_switch_text_column_box{
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-grow: 2;
+  width: 100%;
+}
+
+.settings_switch_sub_text{
+  color: #757575;
+}
+
+.settings_switch{
+  width: 44px;
+  justify-content: flex-end;
+  flex-grow: 1;
+  padding-left: unset !important;
+}
+
 /* fix mdl styles */
-.mdl-textfield__label:after{
+.mdl-textfield__label:after,
+.mdl-switch.is-checked .mdl-switch__thumb{
   background-color: #5BE0E8;
+}
+
+.mdl-switch.is-checked .mdl-switch__track{
+  background-color: rgba(91, 224, 232, .5);
 }
 
 .mdl-button.mdl-button--colored{
@@ -140,10 +202,13 @@
 .popup_content > h1{
   font-size: 24px;
   margin: 0;
+  padding-bottom: 5px;
 }
 
 .category_folder_path_input_label,
-.category_folder_path_input{
+.category_folder_path_input,
+.settings_dir_input,
+.settings_dir_input_label{
   width: calc(100% - 30px);
   margin-right: 4px;
 }
@@ -174,12 +239,15 @@
   color: #5BE0E8;
 }
 
-.category_folder_path_input_area{
+.category_folder_path_input_area,
+.settings_categorys_dir_input_area{
   position: relative;
   display: flex;
 }
 
-.mdl-textfield--floating-label.is-focused .mdl-textfield__label{
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,
+.mdl-textfield--floating-label.is-dirty .mdl-textfield__label,
+.mdl-textfield--floating-label.has-placeholder .mdl-textfield__label{
   color: #5BE0E8;
 }
 
@@ -198,7 +266,8 @@
 }
 
 .category_name_input_area,
-.category_folder_path_input_area{
+.category_folder_path_input_area,
+.settings_categorys_dir_input_area{
   width: 100%;
 }
 
@@ -345,6 +414,9 @@
   visibility: visible;
 }
 
+span{
+  user-select: none !important;
+}
 
 body{
 }

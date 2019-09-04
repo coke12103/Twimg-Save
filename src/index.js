@@ -95,9 +95,42 @@ function ui_setup(){
   var edit_category_confirm = document.getElementById('edit_category_confirm');
   // main
   var confirm_button = document.getElementById("confirm");
+  // settings
+  var settings_button = document.getElementById("settings_button");
+  var settings_popup = document.getElementById("settings_popup");
+  var settings_close = document.getElementById("settings_close");
+  var settings_select_categorys_dir = document.getElementById("settings_select_categorys_dir");
+  var settings_confirm = document.getElementById("settings_confirm");
 
   // main event
   confirm_button.addEventListener("click", get_img_from_input, false);
+
+  // settings event
+  settings_button.addEventListener("click", () => {
+      settings_popup.classList.add('is_show');
+      settings.edit_load();
+  });
+
+  settings_close.addEventListener("click", () => {
+      settings_popup.classList.remove('is_show');
+  });
+
+  settings_confirm.addEventListener('click', () => {
+      settings.update();
+  });
+
+  settings_select_categorys_dir.addEventListener('click', () => {
+      var dialog = remote.dialog;
+
+      dialog.showOpenDialog(null, {
+          properties: ['openFile'],
+          title: 'categorys.jsonの参照'
+        }, (item) => {
+          if(item[0] != undefined){
+            document.getElementById('settings_categorys_dir_input').value = item[0];
+          }
+      })
+  });
 
   // category event
   add_category_open_button.addEventListener('click', () => {
@@ -145,26 +178,26 @@ function ui_setup(){
 
   delete_category_button.addEventListener('click', () => {
       delete_category_confirm_popup.classList.add('is_show');
-  })
+  });
 
   confirm_delete_button.addEventListener('click', () => {
       category.del(config);
       delete_category_confirm_popup.classList.remove('is_show');
       edit_category_popup.classList.remove('is_show');
-  })
+  });
 
   cancel_delete_button.addEventListener('click', () => {
       delete_category_confirm_popup.classList.remove('is_show');
-  })
+  });
 
   folder_open_button.addEventListener('click', () => {
       var save_dir = category.categorys[document.getElementById("category_select").value].save_dir;
       electron.shell.openItem(save_dir);
-  })
+  });
 
   edit_category_confirm.addEventListener('click', () => {
       category.update(config);
-  })
+  });
 }
 
 function set_input_url(text){
