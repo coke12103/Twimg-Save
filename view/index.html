@@ -198,6 +198,7 @@
         <!-- Popup Title -->
         <h1>設定</h1>
         <span id="settings_error_display"></span>
+        <h2>全体設定</h2>
         <!-- Input categorys dir -->
           <div class="settings_categorys_dir_input_area mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input type="text" id="settings_categorys_dir_input" class="mdl-textfield__input settings_dir_input">
@@ -208,25 +209,13 @@
               </i>
             </button>
           </div>
-<!--
-        <div class="settings_categorys_dir_input_area mdl-textfield mdl-js-textfield">
-          <input type="text" id="settings_categorys_dir_input" class="mdl-textfield__input settings_dir_input">
-          <label class="mdl-textfield__label settings_dir_input_label" for="settings_categorys_dir_input">category.jsonの場所</label>
-          <button id="settings_select_categorys_dir" class="select_save_directory_button">
-            <i class="material-icons">
-              folder
-            </i>
-          </button>
-        </div>
--->
-
         <!-- clipboard check main setting -->
         <div class="settings_switch_area">
           <label for="settings_is_clipboard_check" class="settings_switch_text_column_box">
             <span class="settings_switch_text">クリップボード監視の主電源</span>
             <span class="settings_switch_sub_text">(適用にはソフトの再起動が必要です)</span>
           </label>
-          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="settings_is_clipboard_check">
+          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" id="settings_switch_label_clipboard_check" for="settings_is_clipboard_check">
             <input type="checkbox" id="settings_is_clipboard_check" class="mdl-switch__input">
             <span class="mdl-switch__label"></span>
           </label>
@@ -237,8 +226,59 @@
             <span class="settings_switch_text">保存時のファイル名にドメインを含める</span>
             <span class="settings_switch_sub_text">(分散SNSのみに適用されます)</span>
           </label>
-          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" for="settings_is_filename_domain">
+          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" id="settings_switch_label_filename_domain" for="settings_is_filename_domain">
             <input type="checkbox" id="settings_is_filename_domain" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
+        <h2>通知設定</h2>
+        <!-- all notification -->
+        <div class="settings_switch_area">
+          <label for="settings_all_notification" class="settings_switch_text_column_box">
+            <span class="settings_switch_text">すべての通知</span>
+          </label>
+          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" id="settings_switch_label_all_notification" for="settings_all_notification">
+            <input type="checkbox" id="settings_all_notification" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
+        <!-- all end notification -->
+        <div class="settings_switch_area">
+          <label for="settings_all_end_notification" class="settings_switch_text_column_box">
+            <span class="settings_switch_text">完了通知</span>
+          </label>
+          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" id="settings_switch_label_end_notification"for="settings_all_end_notification">
+            <input type="checkbox" id="settings_all_end_notification" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
+        <!-- copy notification -->
+        <div class="settings_switch_area">
+          <label for="settings_copy_notification" class="settings_switch_text_column_box">
+            <span class="settings_switch_text">コピー通知</span>
+          </label>
+          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" id="settings_switch_label_copy_notification" for="settings_copy_notification">
+            <input type="checkbox" id="settings_copy_notification" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
+        <!-- auto download start notification settings -->
+        <div class="settings_switch_area">
+          <label for="settings_auto_download_start_notification" class="settings_switch_text_column_box">
+            <span class="settings_switch_text">自動保存モード時の開始通知</span>
+          </label>
+          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" id="settings_switch_label_auto_download_start_notification" for="settings_auto_download_start_notification">
+            <input type="checkbox" id="settings_auto_download_start_notification" class="mdl-switch__input">
+            <span class="mdl-switch__label"></span>
+          </label>
+        </div>
+        <!-- auto download end notification settings -->
+        <div class="settings_switch_area">
+          <label for="settings_auto_download_end_notification" class="settings_switch_text_column_box">
+            <span class="settings_switch_text">自動保存モード時の完了通知</span>
+          </label>
+          <label class="settings_switch mdl-switch mdl-js-switch mdl-js-ripple-effect" id="settings_switch_label_auto_download_end_notification" for="settings_auto_download_end_notification">
+            <input type="checkbox" id="settings_auto_download_end_notification" class="mdl-switch__input">
             <span class="mdl-switch__label"></span>
           </label>
         </div>

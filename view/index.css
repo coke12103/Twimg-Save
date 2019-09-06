@@ -205,6 +205,13 @@
   padding-bottom: 5px;
 }
 
+.popup_content > h2{
+  font-size: 18px;
+  line-height: unset;
+  padding: 6px 0;
+  margin: 0;
+}
+
 .category_folder_path_input_label,
 .category_folder_path_input,
 .settings_dir_input,

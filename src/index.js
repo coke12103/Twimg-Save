@@ -58,14 +58,10 @@ function check_clipboard_start(){
             if(is_unlimited_download_flag.checked){
               get_img_from_input();
               set_status_text("Clipboard Text: Download Start");
-              new Notification('Twimg Save', {
-                  body: "クリップボードのURLからダウンロードを開始します..."
-              });
+              notification.start_notification("クリップボードのURLからダウンロードを開始します...")
             }else{
               set_status_text("Clipboard Text: Match. Set url.");
-              new Notification('Twimg Save', {
-                  body: "クリップボードのURLをセットしました!"
-              });
+              notification.copy_notification("クリップボードのURLをセットしました!");
             }
           }else{
             console.log("Not Match!")
