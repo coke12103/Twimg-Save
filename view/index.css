@@ -169,7 +169,14 @@
   z-index: 100;
   position: fixed;
   background-color: rgba(0,0,0,0.4);
+  overflow-y: scroll;
 }
+
+.popup::-webkit-scrollbar {
+  display: none;
+  -webkit-appearance: none;
+}
+
 .popup_content{
   margin: 5% auto;
   background: #fff;
