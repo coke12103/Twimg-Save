@@ -1,6 +1,13 @@
 {
-  "save_dir": "./gets",
-  "clipboard_check": false,
-  "file_name_domain": true,
-  "categorys_path": "./categorys.json"
+  "clipboard_check":true,
+  "file_name_domain":true,
+  "categorys_path":"./categorys.json",
+  "notification_main":true,
+  "notification_end":true,
+  "notification_copy":true,
+  "notification_auto_download_start":true,
+  "notification_auto_download_end":true,
+  "notification_unsupported":true,
+  "notification_no_file":true,
+  "notification_basic_error":true
 }
