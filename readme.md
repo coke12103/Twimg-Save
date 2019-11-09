@@ -1,4 +1,6 @@
 # Twimg Save
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcoke12103%2FTwimg-Save.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcoke12103%2FTwimg-Save?ref=badge_shield)
+
 ## なにこれ
 いろんなSNSの画像保存してくれるやつ
 ## なにがいるの
@@ -33,3 +35,7 @@
 4. `Download`を押す
 5. フォルダーに投稿に付いてる画像が全部保存される
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcoke12103%2FTwimg-Save.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcoke12103%2FTwimg-Save?ref=badge_large)
