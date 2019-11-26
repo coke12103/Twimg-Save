@@ -6,6 +6,7 @@ const category = require('../lib/category');
 const get_img = require('../lib/downloader/get');
 const downloader = require('../lib/downloader/index');
 const settings = require('../lib/settings');
+const plugin = require('../lib/clay/index');
 
 var config;
 
@@ -17,11 +18,15 @@ function init(){
   category.set_categorys(config);
   ui_setup();
   console.log(category.categorys);
-  set_status_text("Ready!")
+
+  plugin.reset_spells();
+  plugin.load("./plugins/");
+  plugin.load("./lib/plugins");
 
   if(config.clipboard_check){
     check_clipboard_start();
   }
+  set_status_text("Ready!");
 }
 
 function get_img_from_input(){
