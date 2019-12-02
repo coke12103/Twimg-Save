@@ -1,0 +1,10 @@
+{
+  "name": "Danbooru Download Plugin",
+  "id": "danbooru",
+  "search_regexp": "http[s]?:\/\/danbooru\\.donmai\\.us\/posts\/([0-9]+)",
+  "main": "danbooru.js",
+  "version": "v1.0.0",
+  "author": "coke12103",
+  "description": "Danbooru Download Plugin for Twimg Save",
+  "type": "Danbooru"
+}

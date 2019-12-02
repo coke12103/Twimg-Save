@@ -1,0 +1,10 @@
+{
+  "name": "Pixiv Download Plugin",
+  "id": "pixiv",
+  "search_regexp": "(http[s]?:\/\/www\\.)?pixiv\\.net\/(member_illust\\.php|(en\/)?artworks\/([0-9]+))",
+  "main": "pixiv.js",
+  "version": "v1.0.0",
+  "author": "coke12103",
+  "description": "Pixiv Download Plugin for Twimg Save",
+  "type": "Pixiv"
+}

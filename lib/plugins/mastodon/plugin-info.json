@@ -1,0 +1,10 @@
+{
+  "name": "Mastodon Download Plugin",
+  "id": "mastodon",
+  "search_regexp": "(https:\/\/(.+)\/@(.+)\/([0-9]+))|(https:\/\/(.+)\/users\/(.+)\/statuses\/([0-9]+))",
+  "main": "mastodon.js",
+  "version": "v1.0.0",
+  "author": "coke12103",
+  "description": "Mastodon Download Plugin for Twimg Save",
+  "type": "Mastodon"
+}

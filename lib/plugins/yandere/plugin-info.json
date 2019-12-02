@@ -1,0 +1,10 @@
+{
+  "name": "Yandere Download Plugin",
+  "id": "yandere",
+  "search_regexp": "http[s]?:\/\/yande\\.re\/post\/show\/([0-9]+)",
+  "main": "yandere.js",
+  "version": "v1.0.0",
+  "author": "coke12103",
+  "description": "Yandere Download Plugin for Twimg Save",
+  "type": "Yandere"
+}

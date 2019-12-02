@@ -1,0 +1,10 @@
+{
+  "name": "Misskey Download Plugin",
+  "id": "misskey",
+  "search_regexp": "https:\/\/(.+)\/notes\/([a-zA-Z0-9]+)",
+  "main": "misskey.js",
+  "version": "v1.0.0",
+  "author": "coke12103",
+  "description": "Misskey Download Plugin for Twimg Save",
+  "type": "Misskey"
+}

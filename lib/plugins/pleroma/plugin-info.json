@@ -1,0 +1,10 @@
+{
+  "name": "Pleroma Download Plugin",
+  "id": "pleroma",
+  "search_regexp": "https:\/\/(.+)\/notice\/([a-zA-Z0-9]+)|https:\/\/(.+)\/objects\/.+",
+  "main": "pleroma.js",
+  "version": "v1.0.0",
+  "author": "coke12103",
+  "description": "Pleroma Download Plugin for Twimg Save",
+  "type": "Pleroma"
+}
