@@ -1,6 +1,7 @@
 const electron = require('electron');
 const remote = electron.remote;
 const fs = remote.require('fs');
+const path = remote.require("path");
 const notification = require('../lib/notification');
 const category = require('../lib/category');
 const get_img = require('../lib/downloader/get');
@@ -20,8 +21,8 @@ function init(){
   console.log(category.categorys);
 
   plugin.reset_spells();
+  plugin.load(path.join(__dirname, "../lib/plugins"));
   plugin.load("./plugins/");
-  plugin.load("./lib/plugins");
 
   if(config.clipboard_check){
     check_clipboard_start();
