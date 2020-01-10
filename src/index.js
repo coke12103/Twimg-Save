@@ -5,9 +5,12 @@ const path = remote.require("path");
 const notification = require('../lib/notification');
 const category = require('../lib/category');
 const get_img = require('../lib/downloader/get');
-const downloader = require('../lib/downloader/index');
 const settings = require('../lib/settings');
-const plugin = require('../lib/clay/index');
+
+const ClayCore = require('../lib/clay/clay_core.js');
+const Clay = require('../lib/clay/clay.js');
+
+var clay_core = new ClayCore();
 
 var config;
 
@@ -20,9 +23,8 @@ function init(){
   ui_setup();
   console.log(category.categorys);
 
-  plugin.reset_spells();
-  plugin.load(path.join(__dirname, "../lib/plugins"));
-  plugin.load("./plugins/");
+  clay_core.load(path.join(__dirname, "../lib/plugins"));
+  clay_core.load("./plugins/");
 
   if(config.clipboard_check){
     check_clipboard_start();
@@ -57,7 +59,7 @@ function check_clipboard_start(){
       if(check_clipboard_flag.checked){
         if(prev_str != current_str){
           prev_str = current_str;
-          if(downloader.check_sns_type(current_str)){
+          if(clay_core.find_source(current_str)){
             set_input_url(current_str);
 
             console.log("Match!!");
