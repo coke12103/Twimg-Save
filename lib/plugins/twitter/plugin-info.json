@@ -1,10 +1,16 @@
 {
   "name": "Twitter Download Plugin",
   "id": "twitter",
-  "search_regexp": "https:\/\/(mobile\\.)?twitter\\.com\/.+\/status\/.+",
+  "spell_ver": 1,
   "main": "twitter.js",
   "version": "v1.0.0",
   "author": "coke12103",
   "description": "Twitter Download Plugin for Twimg Save",
-  "type": "Twitter"
+  "type": {
+    "source_addition": {
+      "regexp": "https:\/\/(mobile\\.)?twitter\\.com\/.+\/status\/.+",
+      "target_text": "Twitter",
+      "exec": "main"
+    }
+  }
 }
