@@ -59,7 +59,7 @@ function check_clipboard_start(){
       if(check_clipboard_flag.checked){
         if(prev_str != current_str){
           prev_str = current_str;
-          if(clay_core.find_source(current_str)){
+          if(clay_core.find_source(current_str).id){
             set_input_url(current_str);
 
             console.log("Match!!");
