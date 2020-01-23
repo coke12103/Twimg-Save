@@ -202,6 +202,20 @@ function ui_setup(){
   edit_category_confirm.addEventListener('click', () => {
       category.update(config);
   });
+
+  var input_url = document.getElementById("url_input");
+
+  input_url.addEventListener("mousedown", (e) => {
+      if(e.button == 2){
+        set_input_url(remote.clipboard.readText());
+      }
+  });
+
+  confirm_button.addEventListener("mousedown", (e) => {
+      if(e.button == 2){
+        set_input_url(remote.clipboard.readText());
+      }
+  })
 }
 
 function set_input_url(text){
