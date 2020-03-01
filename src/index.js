@@ -99,6 +99,7 @@ function ui_setup(){
   var edit_category_confirm = document.getElementById('edit_category_confirm');
   // main
   var confirm_button = document.getElementById("confirm");
+  var category_select = document.getElementById("category_select");
   // settings
   var settings_button = document.getElementById("settings_button");
   var settings_popup = document.getElementById("settings_popup");
@@ -215,6 +216,10 @@ function ui_setup(){
       if(e.button == 2){
         set_input_url(remote.clipboard.readText());
       }
+  });
+
+  category_select.addEventListener("change", () => {
+    document.title = "Twimg Save [" + category.categorys[document.getElementById("category_select").value].name + "]";
   })
 }
 
