@@ -56,26 +56,25 @@ function check_clipboard_start(){
   var prev_str = clipboard.readText();
   setInterval(() => {
       var current_str = clipboard.readText();
-      if(check_clipboard_flag.checked){
-        if(prev_str != current_str){
-          prev_str = current_str;
-          if(clay_core.find_source(current_str).id){
-            set_input_url(current_str);
+      if(!check_clipboard_flag.checked) return;
+      if(prev_str == current_str) return;
 
-            console.log("Match!!");
-            if(is_unlimited_download_flag.checked){
-              get_img_from_input();
-              set_status_text("Clipboard Text: Download Start");
-              notification.start_notification("クリップボードのURLからダウンロードを開始します...")
-            }else{
-              set_status_text("Clipboard Text: Match. Set url.");
-              notification.copy_notification("クリップボードのURLをセットしました!");
-            }
-          }else{
-            console.log("Not Match!")
-            set_status_text("Clipboard Text: Not Match!")
-          }
+      prev_str = current_str;
+      if(clay_core.find_source(current_str).id){
+        set_input_url(current_str);
+
+        console.log("Match!!");
+        if(is_unlimited_download_flag.checked){
+          get_img_from_input();
+          set_status_text("Clipboard Text: Download Start");
+          notification.start_notification("クリップボードのURLからダウンロードを開始します...")
+        }else{
+          set_status_text("Clipboard Text: Match. Set url.");
+          notification.copy_notification("クリップボードのURLをセットしました!");
         }
+      }else{
+        console.log("Not Match!")
+        set_status_text("Clipboard Text: Not Match!")
       }
   }, 500);
 }
