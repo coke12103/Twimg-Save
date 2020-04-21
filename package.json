@@ -11,11 +11,11 @@
   "license": "MIT",
   "dependencies": {
     "fast-html-parser": "^1.0.1",
-    "request": "^2.88.0",
+    "request": "^2.88.2",
     "request-promise": "^4.2.5"
   },
   "devDependencies": {
-    "electron": "^5.0.12",
+    "electron": "^5.0.13",
     "electron-builder": "21.0.2"
   }
 }
