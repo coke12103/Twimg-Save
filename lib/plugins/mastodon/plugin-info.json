@@ -8,7 +8,7 @@
   "description": "Mastodon Download Plugin for Twimg Save",
   "type": {
     "source_addition": {
-    "regexp": "(https:\/\/(.+)\/@(.+)\/([0-9]+))|(https:\/\/(.+)\/users\/(.+)\/statuses\/([0-9]+))",
+    "regexp": "^(?!.*sketch\\.pixiv\\.net)((https:\/\/(.+)\/@(.+)\/([0-9]+))|(https:\/\/(.+)\/users\/(.+)\/statuses\/([0-9]+)))",
       "target_text": "Mastodon",
       "exec": "main"
     }
