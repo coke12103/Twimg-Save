@@ -16,7 +16,7 @@
     "request-promise": "^4.2.6"
   },
   "devDependencies": {
-    "electron": "9.3.2",
+    "electron": "11.5.0",
     "electron-builder": "21.0.2"
   }
 }
